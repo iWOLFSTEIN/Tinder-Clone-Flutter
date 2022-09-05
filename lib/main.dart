@@ -12,9 +12,14 @@ import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/top_navigation_screen.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // await Firebase.initializeApp();
   runApp(MyApp());
 }
 
