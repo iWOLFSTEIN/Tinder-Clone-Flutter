@@ -22,30 +22,37 @@ class MatchScreen extends StatefulWidget {
 class _MatchScreenState extends State<MatchScreen> {
   final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<String?>? _ignoreSwipeIds;
+  List<String>? _ignoreSwipeIds;
 
   Future<AppUser?> loadPerson(String? myUserId) async {
-    if (_ignoreSwipeIds == null) {
-      _ignoreSwipeIds = <String?>[];
-      var swipes = await _databaseSource.getSwipes(myUserId);
-      for (var i = 0; i < swipes.size; i++) {
-        Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
-        _ignoreSwipeIds!.add(swipe.id);
+    try {
+      if (_ignoreSwipeIds == null) {
+        _ignoreSwipeIds = [];
+        var swipes = await _databaseSource.getSwipes(myUserId);
+        for (var i = 0; i < swipes.size; i++) {
+          Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
+          _ignoreSwipeIds!.add(swipe.id!);
+        }
+        _ignoreSwipeIds!.add(myUserId!);
       }
-      _ignoreSwipeIds!.add(myUserId);
+      var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
+
+      if (res.docs.length > 0) {
+        var userToMatchWith = AppUser.fromSnapshot(res.docs.first);
+        return userToMatchWith;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('--------------------------------');
+      print(e.toString());
     }
-    var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
-    if (res.docs.length > 0) {
-      var userToMatchWith = AppUser.fromSnapshot(res.docs.first);
-      return userToMatchWith;
-    } else {
-      return null;
-    }
+    return null;
   }
 
   void personSwiped(AppUser myUser, AppUser otherUser, bool isLiked) async {
     _databaseSource.addSwipedUser(myUser.id, Swipe(otherUser.id, isLiked));
-    _ignoreSwipeIds!.add(otherUser.id);
+    _ignoreSwipeIds!.add(otherUser.id!);
 
     if (isLiked == true) {
       if (await isMatch(myUser, otherUser) == true) {
@@ -88,8 +95,7 @@ class _MatchScreenState extends State<MatchScreen> {
               future: userProvider.user,
               builder: (context, userSnapshot) {
                 return CustomModalProgressHUD(
-                  inAsyncCall:
-                      userProvider.user == null || userProvider.isLoading,
+                  inAsyncCall: userProvider.isLoading,
                   child: (userSnapshot.hasData)
                       ? FutureBuilder<AppUser?>(
                           future: loadPerson(userSnapshot.data!.id),
@@ -139,11 +145,11 @@ class _MatchScreenState extends State<MatchScreen> {
                                                         false);
                                                   },
                                                   iconData: Icons.clear,
-                                                  buttonColor:
-                                                      kColorPrimaryVariant,
+                                                  buttonColor: kPrimaryDark,
                                                   iconSize: 30,
                                                 ),
                                                 RoundedIconButton(
+                                                  buttonColor: kPrimaryDark,
                                                   onPressed: () {
                                                     personSwiped(
                                                         userSnapshot.data!,

@@ -41,13 +41,13 @@ class MessageBubble extends StatelessWidget {
             child: Material(
               borderRadius: BorderRadius.circular(8.0),
               elevation: 5.0,
-              color: isSenderMyUser ? kAccentColor : kSecondaryColor,
+              color: isSenderMyUser ? kSecondaryColor : kPrimaryDark,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 child: Text(
                   text!,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: isSenderMyUser ? kSecondaryColor : Colors.black,
+                      color: isSenderMyUser ? kPrimaryColor : kSecondaryColor,
                       fontWeight: FontWeight.normal),
                 ),
               ),

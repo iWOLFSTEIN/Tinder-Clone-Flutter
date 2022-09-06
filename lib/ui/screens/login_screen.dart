@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tinder_app_flutter/data/db/remote/response.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
-import 'package:tinder_app_flutter/ui/screens/top_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/bordered_text_field.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_button.dart';
@@ -30,16 +31,16 @@ class _LoginScreenState extends State<LoginScreen> {
     _userProvider = Provider.of(context, listen: false);
   }
 
-  void loginPressed() async {
+  void loginPressed(context) async {
     setState(() {
       _isLoading = true;
     });
     await _userProvider
-        .loginUser(_inputEmail, _inputPassword, _scaffoldKey)
+        .loginUser(_inputEmail, _inputPassword, _scaffoldKey, context)
         .then((response) {
       if (response is Success<UserCredential>) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(TopNavigationScreen.id, (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            BottomNavigationScreen.id, (route) => false);
       }
     });
     setState(() {
@@ -54,7 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('Login'),
+          title: Text(
+            'Login',
+            style: TextStyle(color: kSecondaryColor),
+          ),
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
         ),
         body: CustomModalProgressHUD(
           inAsyncCall: _isLoading,
@@ -65,9 +71,28 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Login to your account',
-                    style: Theme.of(context).textTheme.headline3,
+                  Container(
+                    width: MediaQuery.of(context).size.width - 30,
+                    height: MediaQuery.of(context).size.height / 10,
+                    margin: const EdgeInsets.symmetric(horizontal: 7),
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 66, 43, 43),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Image(
+                      image: AssetImage('assets/icon/text.png'),
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Login to your account',
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 40),
                   BorderedTextField(
@@ -83,7 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     onChanged: (value) => _inputPassword = value,
                   ),
                   Expanded(child: Container()),
-                  RoundedButton(text: 'LOGIN', onPressed: () => loginPressed())
+                  CustomButton(
+                      width: 300,
+                      height: 50,
+                      buttonName: 'LOGIN',
+                      function: () {
+                        loginPressed(context);
+                      })
                 ],
               ),
             ),

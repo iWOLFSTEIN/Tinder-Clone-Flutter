@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:tinder_app_flutter/util/constants.dart';
 
 class AgeScreen extends StatefulWidget {
   final Function(num) onChanged;
@@ -24,14 +23,33 @@ class _AgeScreenState extends State<AgeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'My',
-                style: Theme.of(context).textTheme.headline3,
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                height: MediaQuery.of(context).size.height / 10,
+                margin: const EdgeInsets.symmetric(horizontal: 7),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 66, 43, 43),
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Image(
+                  image: AssetImage('assets/icon/text.png'),
+                ),
               ),
-              Text(
-                'age is',
-                style: Theme.of(context).textTheme.headline3,
-              ),
+              SizedBox(height: 25),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Text(
+                      'My',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    Text(
+                      'age is',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -39,9 +57,11 @@ class _AgeScreenState extends State<AgeScreen> {
           child: Center(
             child: Container(
               child: NumberPicker(
-                itemWidth: double.infinity,
+                  selectedTextStyle:
+                      TextStyle(color: kSecondaryColor, fontSize: 20),
+                  itemWidth: double.infinity,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 2),
+                    border: Border.all(color: kPrimaryDark, width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   value: age,

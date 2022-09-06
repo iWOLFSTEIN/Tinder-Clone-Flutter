@@ -8,7 +8,7 @@ import 'package:tinder_app_flutter/ui/screens/register_sub_screens/add_photo_scr
 import 'package:tinder_app_flutter/ui/screens/register_sub_screens/age_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_sub_screens/email_and_password_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_sub_screens/name_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/top_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
@@ -36,17 +36,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
   }
 
-  void registerUser() async {
+  void registerUser(context) async {
     setState(() {
       _isLoading = true;
     });
 
     await _userProvider
-        .registerUser(_userRegistration, _scaffoldKey)
+        .registerUser(_userRegistration, _scaffoldKey, context)
         .then((response) {
       if (response is Success) {
         Navigator.pop(context);
-        Navigator.pushNamed(context, TopNavigationScreen.id);
+        Navigator.pushNamed(context, BottomNavigationScreen.id);
       }
     });
 
@@ -72,7 +72,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return NameScreen(
             onChanged: (value) => {_userRegistration.name = value});
       case 1:
-        return AgeScreen(onChanged: (value) => {_userRegistration.age = value as int});
+        return AgeScreen(
+            onChanged: (value) => {_userRegistration.age = value as int});
       case 2:
         return AddPhotoScreen(
             onPhotoChanged: (value) =>
@@ -118,7 +119,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
-        appBar: AppBar(title: Text('Register')),
+        appBar: AppBar(
+          title: Text(
+            'Register',
+            style: TextStyle(color: kSecondaryColor),
+          ),
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+        ),
         body: CustomModalProgressHUD(
           inAsyncCall: _isLoading,
           child: Container(
@@ -164,23 +172,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Container(
                   padding: kDefaultPadding,
                   child: _currentScreenIndex == (_endScreenIndex)
-                      ? RoundedButton(
-                          text: 'REGISTER',
-                          onPressed: _isLoading == false
-                              ? () => {registerUser()}
-                              : null)
-                      : RoundedButton(
-                          text: 'CONTINUE',
-                          onPressed: () => {
-                            if (canContinueToNextSubScreen())
+                      ? CustomButton(
+                          height: 50,
+                          width: 300,
+                          buttonName: 'REGISTER',
+                          function: _isLoading == false
+                              ? () {
+                                  registerUser(context);
+                                }
+                              : () {})
+                      : CustomButton(
+                          height: 50,
+                          width: 300,
+                          buttonName: 'CONTINUE',
+                          function: () {
+                            if (canContinueToNextSubScreen()) {
                               setState(() {
                                 _currentScreenIndex++;
-                              })
-                            else
-                              showSnackBar(
-                                  _scaffoldKey, getInvalidRegistrationMessage())
-                          },
-                        ),
+                              });
+                            } else
+                              showSnackBar(_scaffoldKey,
+                                  getInvalidRegistrationMessage(), context);
+                          }),
                 ),
               ],
             ),

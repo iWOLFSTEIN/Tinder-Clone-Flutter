@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/top_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 import 'package:tinder_app_flutter/util/shared_preferences_utils.dart';
 
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String? userId = await SharedPreferencesUtil.getUserId();
     Navigator.pop(context);
     if (userId != null) {
-      Navigator.pushNamed(context, TopNavigationScreen.id);
+      Navigator.pushNamed(context, BottomNavigationScreen.id);
     } else {
       Navigator.pushNamed(context, StartScreen.id);
     }

@@ -3,6 +3,7 @@ import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
 import 'package:tinder_app_flutter/data/db/entity/chat.dart';
 import 'package:tinder_app_flutter/data/db/entity/message.dart';
 import 'package:tinder_app_flutter/data/db/remote/firebase_database_source.dart';
+import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/chat_top_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tinder_app_flutter/ui/widgets/message_bubble.dart';
@@ -38,19 +39,20 @@ class ChatScreen extends StatelessWidget {
   bool shouldShowTime(Message currMessage, Message messageBefore) {
     int halfHourInMilli = 1800000;
 
-    if (messageBefore != null) {
-      if ((messageBefore.epochTimeMs! - currMessage.epochTimeMs!).abs() >
-          halfHourInMilli) {
-        return true;
-      }
+    if ((messageBefore.epochTimeMs! - currMessage.epochTimeMs!).abs() >
+        halfHourInMilli) {
+      return true;
     }
     return messageBefore == null;
   }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
             title: StreamBuilder<DocumentSnapshot>(
                 stream: _databaseSource.observeUser(otherUserId),
                 builder: (context, snapshot) {
@@ -102,7 +104,7 @@ class ChatScreen extends StatelessWidget {
                       },
                     );
                   })),
-          getBottomContainer(context, myUserId)
+          getBottomContainer(context, myUserId, size)
         ]));
   }
 
@@ -117,8 +119,9 @@ class ChatScreen extends StatelessWidget {
     messageTextController.clear();
   }
 
-  Widget getBottomContainer(BuildContext context, String? myUserId) {
+  Widget getBottomContainer(BuildContext context, String? myUserId, size) {
     return Container(
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
@@ -144,20 +147,15 @@ class ChatScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.all(0)),
               ),
             ),
-            ElevatedButton(
-              // padding: EdgeInsets.all(10),
-              // highlightElevation: 0,
-              // elevation: 0,
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(4)),
-              child: Text(
-                "SEND",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              onPressed: () {
-                sendMessage(myUserId);
-              },
-            ),
+            CustomButton(
+                color: kPrimaryDark,
+                textColor: kSecondaryColor,
+                buttonName: 'SEND',
+                width: size.width * 0.27,
+                height: size.height * 0.05,
+                function: () {
+                  sendMessage(myUserId);
+                })
           ],
         ),
       ),

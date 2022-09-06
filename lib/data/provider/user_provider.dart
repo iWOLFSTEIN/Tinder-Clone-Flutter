@@ -23,29 +23,28 @@ class UserProvider extends ChangeNotifier {
   Future<AppUser?> get user => _getUser();
 
   Future<Response> loginUser(String email, String password,
-      GlobalKey<ScaffoldState> errorScaffoldKey) async {
+      GlobalKey<ScaffoldState> errorScaffoldKey, context) async {
     Response<dynamic> response = await _authSource.signIn(email, password);
     if (response is Success<UserCredential>) {
       String id = response.value.user!.uid;
       SharedPreferencesUtil.setUserId(id);
     } else if (response is Error) {
-      showSnackBar(errorScaffoldKey, response.message);
+      showSnackBar(errorScaffoldKey, response.message, context);
     }
     return response;
   }
 
   Future<Response> registerUser(UserRegistration userRegistration,
-      GlobalKey<ScaffoldState> errorScaffoldKey) async {
+      GlobalKey<ScaffoldState> errorScaffoldKey, context) async {
     Response<dynamic> response = await _authSource.register(
         userRegistration.email, userRegistration.password);
     if (response is Success<UserCredential>) {
       String id = response.value.user!.uid;
       response = await (_storageSource.uploadUserProfilePhoto(
-              userRegistration.localProfilePhotoPath, id)
-          as Future<Success<UserCredential>>);
+          userRegistration.localProfilePhotoPath, id));
 
       if (response is Success<String>) {
-        String profilePhotoUrl = response.value as String;
+        String profilePhotoUrl = response.value;
         AppUser user = AppUser(
             id: id,
             name: userRegistration.name,
@@ -57,7 +56,8 @@ class UserProvider extends ChangeNotifier {
         return Response.success(user);
       }
     }
-    if (response is Error) showSnackBar(errorScaffoldKey, response.message);
+    if (response is Error)
+      showSnackBar(errorScaffoldKey, response.message, context);
     return response;
   }
 
@@ -68,8 +68,8 @@ class UserProvider extends ChangeNotifier {
     return _user;
   }
 
-  void updateUserProfilePhoto(
-      String localFilePath, GlobalKey<ScaffoldState> errorScaffoldKey) async {
+  void updateUserProfilePhoto(String localFilePath,
+      GlobalKey<ScaffoldState> errorScaffoldKey, context) async {
     isLoading = true;
     notifyListeners();
     Response<dynamic> response =
@@ -79,7 +79,7 @@ class UserProvider extends ChangeNotifier {
       _user!.profilePhotoPath = response.value;
       _databaseSource.updateUser(_user!);
     } else if (response is Error) {
-      showSnackBar(errorScaffoldKey, response.message);
+      showSnackBar(errorScaffoldKey, response.message, context);
     }
     notifyListeners();
   }

@@ -5,9 +5,11 @@ const kDefaultPadding = EdgeInsets.symmetric(
   horizontal: 26.0,
 );
 
-const kPrimaryColor = Color(0xFF1D1C1C);
-const kSecondaryColor = Colors.white;
-const kAccentColor = Color(0xFFF4C470);
+const kPrimaryColor = Color(0xFF200D0D);
+const kSecondaryColor = Color(0xFFDFA100);
+const kAccentColor = Color(0xFFDFA100);
+Color kPrimaryDark = const Color(0xFF3F3131);
+Color kLogoColor = const Color.fromARGB(255, 66, 43, 43);
 
 const kColorPrimaryVariant = Color(0xFF424242);
 

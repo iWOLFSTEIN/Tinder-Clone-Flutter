@@ -81,7 +81,7 @@ class FirebaseDatabaseSource {
   }
 
   Future<QuerySnapshot> getPersonsToMatchWith(
-      int limit, List<String?>? ignoreIds) {
+      int limit, List<String>? ignoreIds) {
     return instance
         .collection('users')
         .where('id', whereNotIn: ignoreIds)

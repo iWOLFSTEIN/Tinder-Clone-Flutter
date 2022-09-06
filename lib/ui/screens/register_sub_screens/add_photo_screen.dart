@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/ui/widgets/image_portrait.dart';
+import 'package:tinder_app_flutter/util/constants.dart';
 
 class AddPhotoScreen extends StatefulWidget {
   final Function(String) onPhotoChanged;
@@ -60,6 +61,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                               ? RoundedIconButton(
                                   onPressed: pickImageFromGallery,
                                   iconData: Icons.add,
+                                  buttonColor: kPrimaryDark,
                                   iconSize: 20,
                                 )
                               : null,

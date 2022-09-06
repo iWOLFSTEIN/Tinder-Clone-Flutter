@@ -13,13 +13,39 @@ class EmailAndPasswordScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'My Email and',
-          style: Theme.of(context).textTheme.headline3,
-        ),
-        Text(
-          'Password is',
-          style: Theme.of(context).textTheme.headline3,
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                height: MediaQuery.of(context).size.height / 10,
+                margin: const EdgeInsets.symmetric(horizontal: 7),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 66, 43, 43),
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Image(
+                  image: AssetImage('assets/icon/text.png'),
+                ),
+              ),
+              SizedBox(height: 25),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Text(
+                      'My Email and',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    Text(
+                      'Password is',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 25),
         BorderedTextField(

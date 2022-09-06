@@ -39,8 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               future: userProvider.user,
               builder: (context, userSnapshot) {
                 return CustomModalProgressHUD(
-                    inAsyncCall:
-                        userProvider.user == null || userProvider.isLoading,
+                    inAsyncCall: userProvider.isLoading,
                     child: userSnapshot.hasData
                         ? Column(children: [
                             getProfileImage(userSnapshot.data!, userProvider),
@@ -51,9 +50,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(height: 40),
                             getBio(userSnapshot.data!, userProvider),
                             Expanded(child: Container()),
-                            RoundedButton(
-                                text: 'LOGOUT',
-                                onPressed: () {
+                            CustomButton(
+                                buttonName: 'LOGOUT',
+                                width: 300,
+                                height: 50,
+                                function: () {
                                   logoutPressed(userProvider, context);
                                 })
                           ])
@@ -73,6 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Text('Bio', style: Theme.of(context).textTheme.headline4),
             RoundedIconButton(
+              buttonColor: kPrimaryDark,
               onPressed: () {
                 showDialog(
                   context: context,
@@ -120,10 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   await ImagePicker().getImage(source: ImageSource.gallery);
               if (pickedFile != null) {
                 firebaseProvider.updateUserProfilePhoto(
-                    pickedFile.path, _scaffoldKey);
+                    pickedFile.path, _scaffoldKey, context);
               }
             },
             iconData: Icons.edit,
+            buttonColor: kPrimaryDark,
             iconSize: 18,
           ),
         ),

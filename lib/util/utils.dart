@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-void showSnackBar(GlobalKey<ScaffoldState> globalKey, String message) {
+void showSnackBar(GlobalKey<ScaffoldState> globalKey, String message, context) {
   final snackBar = SnackBar(content: Text(message));
-  // globalKey.currentState.hideCurrentSnackBar();
-  // globalKey.currentState.showSnackBar(snackBar);
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
 String compareAndCombineIds(String userID1, String userID2) {

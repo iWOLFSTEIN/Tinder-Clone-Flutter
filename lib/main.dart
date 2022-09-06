@@ -9,7 +9,7 @@ import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/splash_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/top_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
 import 'firebase_options.dart';
@@ -32,13 +32,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: kFontFamily,
-          accentColor: kSecondaryColor,
           buttonColor: kAccentColor,
           indicatorColor: kAccentColor,
-          primarySwatch:
-              MaterialColor(kBackgroundColorInt, kThemeMaterialColor),
           scaffoldBackgroundColor: kPrimaryColor,
           hintColor: kSecondaryColor,
           textTheme: TextTheme(
@@ -61,6 +59,10 @@ class MyApp extends StatelessWidget {
             highlightColor: Color.fromRGBO(0, 0, 0, .3),
             focusColor: Color.fromRGBO(0, 0, 0, .3),
           ),
+          colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch:
+                      MaterialColor(kBackgroundColorInt, kThemeMaterialColor))
+              .copyWith(secondary: kSecondaryColor),
         ),
         initialRoute: SplashScreen.id,
         routes: {
@@ -68,7 +70,7 @@ class MyApp extends StatelessWidget {
           StartScreen.id: (context) => StartScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           RegisterScreen.id: (context) => RegisterScreen(),
-          TopNavigationScreen.id: (context) => TopNavigationScreen(),
+          BottomNavigationScreen.id: (context) => BottomNavigationScreen(),
           MatchedScreen.id: (context) => MatchedScreen(
                 myProfilePhotoPath: (ModalRoute.of(context)!.settings.arguments
                     as Map)['my_profile_photo_path'],

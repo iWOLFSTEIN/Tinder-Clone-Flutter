@@ -14,14 +14,33 @@ class NameScreen extends StatelessWidget {
         Container(
           child: Column(
             children: [
-              Text(
-                'My first',
-                style: Theme.of(context).textTheme.headline3,
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                height: MediaQuery.of(context).size.height / 10,
+                margin: const EdgeInsets.symmetric(horizontal: 7),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 66, 43, 43),
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Image(
+                  image: AssetImage('assets/icon/text.png'),
+                ),
               ),
-              Text(
-                'name is',
-                style: Theme.of(context).textTheme.headline3,
-              ),
+              SizedBox(height: 25),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Text(
+                      'My first',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                    Text(
+                      'name is',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
