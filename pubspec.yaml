@@ -26,6 +26,9 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   flutter_native_splash: ^2.1.6
   custom_navigation_bar: ^0.8.2
+  line_icons: ^2.0.1
+  flutter_svg: ^1.1.4
+  flutter_custom_clippers: ^2.0.0
 
 flutter_native_splash:
   color: "#000000"
@@ -47,6 +50,7 @@ flutter:
     - images/
     - assets/icon/
     - assets/images/
+    - assets/asset/
   fonts:
     - family: Nunito
       fonts:

@@ -20,12 +20,15 @@ class _SwipeCardState extends State<SwipeCard> {
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.725,
+          decoration: BoxDecoration(
+              color: kPrimaryDark.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20)),
+          height: MediaQuery.of(context).size.height * 0.700,
           width: MediaQuery.of(context).size.width * 0.85,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(25.0),
-            child:
-                Image.network(widget.person!.profilePhotoPath!, fit: BoxFit.fill),
+            borderRadius: BorderRadius.circular(20.0),
+            child: Image.network(widget.person!.profilePhotoPath!,
+                fit: BoxFit.cover),
           ),
         ),
         Positioned(
@@ -64,7 +67,9 @@ class _SwipeCardState extends State<SwipeCard> {
                   text: widget.person!.name,
                   style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                 ),
-                TextSpan(text: '  ${widget.person!.age}', style: TextStyle(fontSize: 20)),
+                TextSpan(
+                    text: '  ${widget.person!.age}',
+                    style: TextStyle(fontSize: 20)),
               ],
             )),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tinder_app_flutter/ui/screens/top_navigation_screens/profile_screen.dart';
 import '../../data/model/top_navigation_item.dart';
 import '../../util/constants.dart';
@@ -90,15 +91,15 @@ class BottomNavigationScreen extends StatelessWidget {
   final List<TopNavigationItem> navigationItems = [
     TopNavigationItem(
       screen: MatchScreen(),
-      iconData: Icons.favorite,
+      image: "assets/asset/explore_icon.svg",
     ),
     TopNavigationItem(
       screen: ChatsScreen(),
-      iconData: Icons.email,
+      image: "assets/asset/chat_icon.svg",
     ),
     TopNavigationItem(
       screen: ProfileScreen(),
-      iconData: Icons.person,
+      image: "assets/asset/account_icon.svg",
     ),
   ];
 
@@ -109,18 +110,18 @@ class BottomNavigationScreen extends StatelessWidget {
           .map((navItem) => Container(
               height: double.infinity,
               child: Tab(
-                  icon: Icon(
-                navItem.iconData,
-                size: 26,
-                color: kSecondaryColor,
-              ))))
+                icon: SvgPicture.asset(
+                  navItem.image,
+                  color: kSecondaryColor,
+                ),
+              )))
           .toList(),
     );
 
     var appBar = AppBar(
       flexibleSpace: tabBar,
-      shadowColor: kPrimaryDark,
-      backgroundColor: kPrimaryDark,
+      backgroundColor: kPrimaryColor.withOpacity(0.1),
+      shadowColor: kPrimaryColor.withOpacity(0.1),
     );
     return DefaultTabController(
       length: navigationItems.length,
