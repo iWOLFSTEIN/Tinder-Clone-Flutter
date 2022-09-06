@@ -27,6 +27,7 @@ class ChatListTile extends StatelessWidget {
             Container(
               width: 60,
               child: CircleAvatar(
+                backgroundColor: kSecondaryColor.withOpacity(0.1),
                 radius: 50,
                 backgroundImage:
                     NetworkImage(chatWithUser.user.profilePhotoPath!),
