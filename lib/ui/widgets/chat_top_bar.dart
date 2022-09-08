@@ -16,11 +16,12 @@ class ChatTopBar extends StatelessWidget {
           children: [
             Container(
               child: CircleAvatar(
+                  backgroundColor: kGrey,
                   radius: 22,
                   backgroundImage: NetworkImage(user.profilePhotoPath!)),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: kAccentColor, width: 1.0),
+                border: Border.all(color: kGrey, width: 1.0),
               ),
             )
           ],
@@ -31,7 +32,7 @@ class ChatTopBar extends StatelessWidget {
           children: [
             Text(
               user.name!,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: TextStyle(color: Colors.white),
             ),
           ],
         ),

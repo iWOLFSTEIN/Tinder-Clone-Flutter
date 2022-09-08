@@ -6,6 +6,9 @@ import 'package:tinder_app_flutter/data/provider/user_provider.dart';
 import 'package:tinder_app_flutter/ui/screens/chat_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/login_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/add_media_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/edit_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/setting_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/splash_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
@@ -35,10 +38,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: kFontFamily,
-          buttonColor: kAccentColor,
-          indicatorColor: kAccentColor,
+          indicatorColor: kSecondaryColor,
           scaffoldBackgroundColor: kPrimaryColor,
-          hintColor: kSecondaryColor,
+          hintColor: kPrimaryColor,
           textTheme: TextTheme(
             headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
             headline2: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
@@ -48,21 +50,20 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
             button: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ).apply(
-            bodyColor: kSecondaryColor,
+            bodyColor: kPrimaryColor,
             displayColor: kSecondaryColor,
           ),
           buttonTheme: ButtonThemeData(
-            splashColor: Colors.transparent,
-            padding: EdgeInsets.symmetric(vertical: 14),
-            buttonColor: kAccentColor,
-            textTheme: ButtonTextTheme.accent,
-            highlightColor: Color.fromRGBO(0, 0, 0, .3),
-            focusColor: Color.fromRGBO(0, 0, 0, .3),
-          ),
+              splashColor: Colors.transparent,
+              padding: EdgeInsets.symmetric(vertical: 14),
+              buttonColor: kGrey,
+              textTheme: ButtonTextTheme.accent,
+              highlightColor: kSecondaryColor,
+              focusColor: kSecondaryColor),
           colorScheme: ColorScheme.fromSwatch(
                   primarySwatch:
                       MaterialColor(kBackgroundColorInt, kThemeMaterialColor))
-              .copyWith(secondary: kSecondaryColor),
+              .copyWith(secondary: kPrimaryColor),
         ),
         initialRoute: SplashScreen.id,
         routes: {
@@ -90,6 +91,9 @@ class MyApp extends StatelessWidget {
                 myUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['user_id'],
               ),
+          SettingScreen.id: (context) => SettingScreen(),
+          EditScreen.id: (context) => EditScreen(),
+          AddMediaScreen.id: (context) => AddMediaScreen(),
         },
       ),
     );

@@ -51,8 +51,8 @@ class ChatScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-            shadowColor: Colors.transparent,
-            backgroundColor: Colors.transparent,
+            shadowColor: kSecondaryColor,
+            backgroundColor: kSecondaryColor,
             title: StreamBuilder<DocumentSnapshot>(
                 stream: _databaseSource.observeUser(otherUserId),
                 builder: (context, snapshot) {
@@ -148,8 +148,8 @@ class ChatScreen extends StatelessWidget {
               ),
             ),
             CustomButton(
-                color: kPrimaryDark,
-                textColor: kSecondaryColor,
+                color: kSecondaryColor,
+                textColor: kPrimaryColor,
                 buttonName: 'SEND',
                 width: size.width * 0.27,
                 height: size.height * 0.05,

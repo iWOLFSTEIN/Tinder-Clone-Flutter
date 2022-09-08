@@ -57,10 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: Text(
             'Login',
-            style: TextStyle(color: kSecondaryColor),
+            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
           ),
-          shadowColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
+          shadowColor: kSecondaryColor,
+          backgroundColor: kSecondaryColor,
         ),
         body: CustomModalProgressHUD(
           inAsyncCall: _isLoading,
@@ -73,10 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width - 30,
-                    height: MediaQuery.of(context).size.height / 10,
+                    height: MediaQuery.of(context).size.height / 8,
                     margin: const EdgeInsets.symmetric(horizontal: 7),
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 66, 43, 43),
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.circular(20)),
                     child: const Image(
                       image: AssetImage('assets/icon/text.png'),

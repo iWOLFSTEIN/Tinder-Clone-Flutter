@@ -61,7 +61,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
                               ? RoundedIconButton(
                                   onPressed: pickImageFromGallery,
                                   iconData: Icons.add,
-                                  buttonColor: kPrimaryDark,
+                                  buttonColor: kGrey,
                                   iconSize: 20,
                                 )
                               : null,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tinder_app_flutter/util/constants.dart';
 
 class RoundedOutlinedButton extends StatelessWidget {
   final String text;
@@ -12,13 +11,8 @@ class RoundedOutlinedButton extends StatelessWidget {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
-          // highlightedBorderColor: kAccentColor,
-          // borderSide: BorderSide(color: kSecondaryColor, width: 2.0),
           child: Text(text, style: Theme.of(context).textTheme.button),
           onPressed: onPressed as void Function()?,
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(25),
-          // ),
         ));
   }
 }

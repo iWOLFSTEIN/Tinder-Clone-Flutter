@@ -22,7 +22,7 @@ class _SwipeCardState extends State<SwipeCard> {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: kPrimaryDark.withOpacity(0.1),
+              color: kGrey.withOpacity(0.1),
               borderRadius: BorderRadius.circular(20)),
           height: MediaQuery.of(context).size.height * 0.700,
           width: MediaQuery.of(context).size.width * 0.85,
@@ -93,7 +93,7 @@ class _SwipeCardState extends State<SwipeCard> {
     return Column(
       children: [
         Divider(
-          color: kAccentColor,
+          color: kGrey,
           thickness: 1.5,
           height: 0,
         ),

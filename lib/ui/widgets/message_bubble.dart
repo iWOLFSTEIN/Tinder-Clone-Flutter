@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 import 'package:tinder_app_flutter/util/utils.dart';
@@ -28,8 +30,10 @@ class MessageBubble extends StatelessWidget {
                   child: Container(
                     child: Text(convertEpochMsToDateTime(epochTimeMs!),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 14, fontWeight: FontWeight.normal)),
+                        style: TextStyle(
+                            color: kSecondaryColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal)),
                     width: double.infinity,
                   ),
                 )
@@ -41,7 +45,7 @@ class MessageBubble extends StatelessWidget {
             child: Material(
               borderRadius: BorderRadius.circular(8.0),
               elevation: 5.0,
-              color: isSenderMyUser ? kSecondaryColor : kPrimaryDark,
+              color: isSenderMyUser ? kSecondaryColor : kGrey,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 child: Text(

@@ -4,6 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/add_media_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/edit_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/setting_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/input_dialog.dart';
@@ -46,10 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: size.width,
                                 height: size.height * 0.60,
                                 decoration: BoxDecoration(
-                                    color: kPrimaryDark.withOpacity(0.1),
+                                    color: kGrey.withOpacity(0.1),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: kPrimaryDark.withOpacity(0.1),
+                                        color: kGrey.withOpacity(0.1),
                                         spreadRadius: 10,
                                         blurRadius: 10,
                                       ),
@@ -81,28 +84,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         children: [
                                           Column(
                                             children: [
-                                              Container(
-                                                width: 60,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: kSecondaryColor
-                                                      .withOpacity(0.5),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: kSecondaryColor
-                                                          .withOpacity(0.1),
-                                                      spreadRadius: 10,
-                                                      blurRadius: 15,
-                                                      // changes position of shadow
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Icon(
-                                                  Icons.settings,
-                                                  size: 35,
-                                                  color: Colors.white
-                                                      .withOpacity(0.7),
+                                              GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.pushNamed(context,
+                                                        SettingScreen.id),
+                                                child: Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: kPrimaryColor,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: kSecondaryColor
+                                                            .withOpacity(0.1),
+                                                        spreadRadius: 10,
+                                                        blurRadius: 15,
+                                                        // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.settings,
+                                                    size: 35,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
                                               SizedBox(
@@ -123,52 +129,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 const EdgeInsets.only(top: 20),
                                             child: Column(
                                               children: [
-                                                Container(
-                                                  width: 85,
-                                                  height: 85,
-                                                  child: Stack(
-                                                    children: [
-                                                      Container(
-                                                        width: 80,
-                                                        height: 80,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: kSecondaryColor
-                                                              .withOpacity(0.5),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color: kPrimaryColor
-                                                                  .withOpacity(
-                                                                      0.1),
-                                                              spreadRadius: 10,
-                                                              blurRadius: 15,
-                                                              // changes position of shadow
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.camera_alt,
-                                                          size: 45,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        bottom: 8,
-                                                        right: 0,
-                                                        child: Container(
-                                                          width: 25,
-                                                          height: 25,
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          AddMediaScreen.id),
+                                                  child: Container(
+                                                    width: 85,
+                                                    height: 85,
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          width: 80,
+                                                          height: 80,
                                                           decoration:
                                                               BoxDecoration(
                                                             shape:
                                                                 BoxShape.circle,
-                                                            color:
-                                                                kSecondaryColor,
+                                                            color: kGrey,
+                                                            // .withOpacity(0.5),
                                                             boxShadow: [
                                                               BoxShadow(
-                                                                color: kSecondaryColor
+                                                                color: kPrimaryColor
                                                                     .withOpacity(
                                                                         0.1),
                                                                 spreadRadius:
@@ -178,16 +160,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               ),
                                                             ],
                                                           ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              Icons.add,
-                                                              color:
-                                                                  kPrimaryColor,
-                                                            ),
+                                                          child: Icon(
+                                                            Icons.camera_alt,
+                                                            size: 45,
+                                                            color: Colors.white,
                                                           ),
                                                         ),
-                                                      )
-                                                    ],
+                                                        Positioned(
+                                                          bottom: 8,
+                                                          right: 0,
+                                                          child: Container(
+                                                            width: 25,
+                                                            height: 25,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  kSecondaryColor,
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: kSecondaryColor
+                                                                      .withOpacity(
+                                                                          0.1),
+                                                                  spreadRadius:
+                                                                      10,
+                                                                  blurRadius:
+                                                                      15,
+                                                                  // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                Icons.add,
+                                                                color:
+                                                                    kPrimaryColor,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -205,28 +219,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ),
                                           Column(
                                             children: [
-                                              Container(
-                                                width: 60,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: kSecondaryColor
-                                                      .withOpacity(0.5),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: kSecondaryColor
-                                                          .withOpacity(0.1),
-                                                      spreadRadius: 10,
-                                                      blurRadius: 15,
-                                                      // changes position of shadow
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Icon(
-                                                  Icons.edit,
-                                                  size: 35,
-                                                  color: Colors.white
-                                                      .withOpacity(0.7),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pushNamed(
+                                                      context, EditScreen.id);
+                                                },
+                                                child: Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: kPrimaryColor,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: kSecondaryColor
+                                                            .withOpacity(0.1),
+                                                        spreadRadius: 10,
+                                                        blurRadius: 15,
+                                                        // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Icon(Icons.edit,
+                                                      size: 35,
+                                                      color: Colors.grey),
                                                 ),
                                               ),
                                               SizedBox(
@@ -256,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Container(
                               margin: EdgeInsets.only(top: 30),
                               child: CustomButton(
-                                  color: kSecondaryColor.withOpacity(0.5),
+                                  color: kSecondaryColor,
                                   buttonName: 'LOGOUT',
                                   width: 300,
                                   height: 50,
@@ -272,24 +288,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-// Column(children: [
-//                             getProfileImage(userSnapshot.data!, userProvider),
-//                             SizedBox(height: 20),
-//                             Text(
-//                                 '${userSnapshot.data!.name}, ${userSnapshot.data!.age}',
-//                                 style: Theme.of(context).textTheme.headline4),
-//                             SizedBox(height: 40),
-//                             getBio(userSnapshot.data!, userProvider),
-//                             Expanded(child: Container()),
-//                             CustomButton(
-//                                 buttonName: 'LOGOUT',
-//                                 width: 300,
-//                                 height: 50,
-//                                 function: () {
-//                                   logoutPressed(userProvider, context);
-//                                 })
-//                           ])
-
   Widget getBio(AppUser user, UserProvider userProvider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -299,9 +297,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Text('Bio', style: Theme.of(context).textTheme.headline4),
             RoundedIconButton(
-              buttonColor: kPrimaryDark,
+              buttonColor: kSecondaryColor,
               onPressed: () {
                 showDialog(
+                  barrierColor: Colors.white,
                   context: context,
                   builder: (_) => InputDialog(
                     onSavePressed: (value) => userProvider.updateUserBio(value),
@@ -319,7 +318,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SizedBox(height: 5),
         Text(
           user.bio.length > 0 ? user.bio : "No bio.",
-          style: Theme.of(context).textTheme.bodyText1,
+          style: TextStyle(color: kSecondaryColor),
         ),
       ],
     );
@@ -331,7 +330,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           child: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(user.profilePhotoPath!),
-            backgroundColor: kPrimaryDark.withOpacity(0.1),
+            backgroundColor: kGrey.withOpacity(0.1),
             radius: 75,
           ),
           decoration: BoxDecoration(
@@ -352,7 +351,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
             },
             iconData: Icons.edit,
-            buttonColor: kPrimaryDark,
+            buttonColor: kSecondaryColor,
             iconSize: 18,
           ),
         ),

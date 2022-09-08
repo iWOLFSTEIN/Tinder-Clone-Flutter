@@ -145,11 +145,11 @@ class _MatchScreenState extends State<MatchScreen> {
                                                         false);
                                                   },
                                                   iconData: Icons.clear,
-                                                  buttonColor: kPrimaryDark,
+                                                  buttonColor: kRed,
                                                   iconSize: 30,
                                                 ),
                                                 RoundedIconButton(
-                                                  buttonColor: kPrimaryDark,
+                                                  buttonColor: Colors.green,
                                                   onPressed: () {
                                                     personSwiped(
                                                         userSnapshot.data!,

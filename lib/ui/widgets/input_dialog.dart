@@ -51,7 +51,6 @@ class _InputDialogState extends State<InputDialog> {
           },
         ),
         ElevatedButton(
-          // color: kAccentColor,
           child: Text(
             'SAVE',
             style: Theme.of(context).textTheme.bodyText1,

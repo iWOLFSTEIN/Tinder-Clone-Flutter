@@ -5,15 +5,19 @@ const kDefaultPadding = EdgeInsets.symmetric(
   horizontal: 26.0,
 );
 
-const kPrimaryColor = Color(0xFF200D0D);
-const kSecondaryColor = Color(0xFFDFA100);
-const kAccentColor = Color(0xFFDFA100);
-Color kPrimaryDark = const Color(0xFF3F3131);
-Color kLogoColor = const Color.fromARGB(255, 66, 43, 43);
+const kRed = Color(0xFFFD5C61);
+const kPrimaryColor = Colors.white;
+const kGrey = Colors.grey;
+const kYellow = Color(0xFFDFA100);
+const kSecondaryColor = Color(0xFF200D0D);
+
+// const kAccentColor = Color(0xFFDFA100);
+// Color kPrimaryDark = const Color(0xFF3F3131);
+// Color kLogoColor = const Color.fromARGB(255, 66, 43, 43);
 
 const kColorPrimaryVariant = Color(0xFF424242);
 
-const kBackgroundColor = Color(0xFF1D1C1C);
+const kBackgroundColor = Colors.grey;
 const kBackgroundColorInt = 0xFF1D1C1C;
 const kFontFamily = 'Nunito';
 

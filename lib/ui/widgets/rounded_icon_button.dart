@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_app_flutter/util/constants.dart';
 
 class RoundedIconButton extends StatelessWidget {
   final Function onPressed;
@@ -20,10 +21,14 @@ class RoundedIconButton extends StatelessWidget {
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       minWidth: 0,
       elevation: 5,
-      color: buttonColor != null ? buttonColor : Theme.of(context).buttonColor,
+      color: buttonColor,
       onPressed: onPressed as void Function()?,
       padding: EdgeInsets.all((iconSize / 2) - paddingReduce),
-      child: Icon(iconData, size: iconSize),
+      child: Icon(
+        iconData,
+        size: iconSize,
+        color: kPrimaryColor,
+      ),
       shape: CircleBorder(),
     );
   }
