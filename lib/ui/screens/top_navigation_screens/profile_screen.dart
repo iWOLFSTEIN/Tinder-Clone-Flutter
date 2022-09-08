@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -329,7 +330,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Container(
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.profilePhotoPath!),
+            backgroundImage: CachedNetworkImageProvider(user.profilePhotoPath!),
             backgroundColor: kPrimaryDark.withOpacity(0.1),
             radius: 75,
           ),

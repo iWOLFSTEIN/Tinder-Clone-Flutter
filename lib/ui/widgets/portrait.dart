@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
@@ -18,7 +19,7 @@ class Portrait extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22.0),
         child: imageUrl!.isNotEmpty
-            ? Image.network(imageUrl!, fit: BoxFit.fitHeight)
+            ? CachedNetworkImage(imageUrl: imageUrl!, fit: BoxFit.fitHeight)
             : null,
       ),
     );

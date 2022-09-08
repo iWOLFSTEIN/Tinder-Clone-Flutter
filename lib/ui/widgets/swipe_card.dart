@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
@@ -27,8 +28,8 @@ class _SwipeCardState extends State<SwipeCard> {
           width: MediaQuery.of(context).size.width * 0.85,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
-            child: Image.network(widget.person!.profilePhotoPath!,
-                fit: BoxFit.cover),
+            child: CachedNetworkImage(
+                imageUrl: widget.person!.profilePhotoPath!, fit: BoxFit.cover),
           ),
         ),
         Positioned(

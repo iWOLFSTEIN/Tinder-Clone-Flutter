@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/data/model/chat_with_user.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
@@ -29,8 +30,8 @@ class ChatListTile extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: kSecondaryColor.withOpacity(0.1),
                 radius: 50,
-                backgroundImage:
-                    NetworkImage(chatWithUser.user.profilePhotoPath!),
+                backgroundImage: CachedNetworkImageProvider(
+                    chatWithUser.user.profilePhotoPath!),
               ),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
