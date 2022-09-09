@@ -9,8 +9,7 @@ class ImagePortrait extends StatelessWidget {
   final String? imagePath;
   final ImageType imageType;
 
-  ImagePortrait(
-      {required this.imageType, this.imagePath, this.height = 250.0});
+  ImagePortrait({required this.imageType, this.imagePath, this.height = 250.0});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class ImagePortrait extends StatelessWidget {
       width: this.height * 0.65,
       height: MediaQuery.of(context).size.height / 3,
       decoration: BoxDecoration(
-          border: Border.all(width: 2, color: kAccentColor),
+          border: Border.all(width: 2, color: kGrey),
           borderRadius: BorderRadius.all(Radius.circular(25.0))),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22.0),

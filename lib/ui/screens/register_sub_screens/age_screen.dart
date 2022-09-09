@@ -28,7 +28,7 @@ class _AgeScreenState extends State<AgeScreen> {
                 height: MediaQuery.of(context).size.height / 10,
                 margin: const EdgeInsets.symmetric(horizontal: 7),
                 decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 66, 43, 43),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
                 child: const Image(
                   image: AssetImage('assets/icon/text.png'),
@@ -57,11 +57,12 @@ class _AgeScreenState extends State<AgeScreen> {
           child: Center(
             child: Container(
               child: NumberPicker(
+                  textStyle: TextStyle(color: kSecondaryColor),
                   selectedTextStyle:
                       TextStyle(color: kSecondaryColor, fontSize: 20),
                   itemWidth: double.infinity,
                   decoration: BoxDecoration(
-                    border: Border.all(color: kPrimaryDark, width: 2),
+                    border: Border.all(color: kGrey, width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   value: age,

@@ -35,7 +35,7 @@ class ChatListTile extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: kAccentColor, width: 1.0),
+                border: Border.all(color: kGrey, width: 1.0),
               ),
             ),
             Expanded(
@@ -73,7 +73,7 @@ class ChatListTile extends StatelessWidget {
             chatWithUser.user.name!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, color: kSecondaryColor),
           ),
         ),
         Container(
@@ -83,7 +83,7 @@ class ChatListTile extends StatelessWidget {
                     : convertEpochMsToDateTime(
                         chatWithUser.chat.lastMessage!.epochTimeMs!),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12))),
+                style: TextStyle(fontSize: 12, color: kSecondaryColor))),
       ],
     );
   }
@@ -102,7 +102,7 @@ class ChatListTile extends StatelessWidget {
                       chatWithUser.chat.lastMessage!.text!),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: kSecondaryColor),
             ),
           ),
         ),
@@ -113,8 +113,8 @@ class ChatListTile extends StatelessWidget {
                 ? Container(
                     width: 8,
                     height: 8,
-                    decoration: BoxDecoration(
-                        color: kAccentColor, shape: BoxShape.circle),
+                    decoration:
+                        BoxDecoration(color: kGrey, shape: BoxShape.circle),
                   )
                 : null)
       ],

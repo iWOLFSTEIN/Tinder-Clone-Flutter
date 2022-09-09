@@ -23,15 +23,15 @@ class StartScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 7),
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 66, 43, 43),
-                  borderRadius: BorderRadius.circular(20)),
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: const Image(
                 image: AssetImage('assets/icon/text.png'),
               ),
             ),
             Image(
-              image: const AssetImage('assets/images/welcome.PNG'),
+              image: const AssetImage('assets/icon/logo.png'),
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 3,
             ),
             const Text(
               'Find your best match with facemedating',

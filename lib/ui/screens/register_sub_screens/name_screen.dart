@@ -16,10 +16,10 @@ class NameScreen extends StatelessWidget {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width - 30,
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 8,
                 margin: const EdgeInsets.symmetric(horizontal: 7),
                 decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 66, 43, 43),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
                 child: const Image(
                   image: AssetImage('assets/icon/text.png'),

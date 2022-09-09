@@ -122,7 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           title: Text(
             'Register',
-            style: TextStyle(color: kSecondaryColor),
+            style:
+                TextStyle(color: kSecondaryColor, fontWeight: FontWeight.bold),
           ),
           shadowColor: Colors.transparent,
           backgroundColor: Colors.transparent,
@@ -137,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: LinearPercentIndicator(
                       lineHeight: 5,
                       percent: (_currentScreenIndex / _endScreenIndex),
-                      progressColor: kAccentColor,
+                      progressColor: kSecondaryColor,
                       padding: EdgeInsets.zero),
                 ),
                 Align(
