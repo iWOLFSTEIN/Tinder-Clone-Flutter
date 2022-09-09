@@ -30,8 +30,12 @@ class _MatchScreenState extends State<MatchScreen> {
         _ignoreSwipeIds = [];
         var swipes = await _databaseSource.getSwipes(myUserId);
         for (var i = 0; i < swipes.size; i++) {
-          Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
-          _ignoreSwipeIds!.add(swipe.id!);
+          // Since model Swipe is not same as the collection swipe so we shall directly access the ids
+
+          // Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
+          // _ignoreSwipeIds!.add(swipe.id!);
+          print(swipes.docs[i].id);
+          _ignoreSwipeIds!.add(swipes.docs[i].id);
         }
         _ignoreSwipeIds!.add(myUserId!);
       }
@@ -52,6 +56,8 @@ class _MatchScreenState extends State<MatchScreen> {
 
   void personSwiped(AppUser myUser, AppUser otherUser, bool isLiked) async {
     _databaseSource.addSwipedUser(myUser.id, Swipe(otherUser.id, isLiked));
+
+    // TODO: add this line to if statement where isLiked is equal to true
     _ignoreSwipeIds!.add(otherUser.id!);
 
     if (isLiked == true) {

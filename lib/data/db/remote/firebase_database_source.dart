@@ -90,7 +90,8 @@ class FirebaseDatabaseSource {
   }
 
   Future<QuerySnapshot> getSwipes(String? userId) {
-    return instance.collection('users').doc(userId).collection('swipes').get();
+    // Changed collection from swipes to matches to get unmatched people again when app loads
+    return instance.collection('users').doc(userId).collection('matches').get();
   }
 
   Stream<DocumentSnapshot> observeUser(String? userId) {
