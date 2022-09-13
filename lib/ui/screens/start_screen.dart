@@ -8,57 +8,60 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text.rich(TextSpan(
-                text: 'Welcome to ',
-                style: TextStyle(fontSize: 25, color: Colors.white),
-                children: <InlineSpan>[])),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 7),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: const Image(
-                image: AssetImage('assets/icon/text.png'),
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text.rich(TextSpan(
+                  text: 'Welcome to ',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                  children: <InlineSpan>[])),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 7),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: const Image(
+                  image: AssetImage('assets/icon/text.png'),
+                ),
               ),
-            ),
-            Image(
-              image: const AssetImage('assets/icon/logo.png'),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 3,
-            ),
-            const Text(
-              'Find your best match with facemedating',
-              style: TextStyle(color: Colors.white),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButton(
-                  buttonName: 'Log In',
-                  color: Colors.transparent,
-                  textColor: kSecondaryColor,
-                  function: () => Navigator.pushNamed(context, LoginScreen.id),
-                ),
-                CustomButton(
-                  buttonName: 'Get Started',
-                  function: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, RegisterScreen.id);
-                  },
-                ),
-              ],
-            )
-          ],
+              Image(
+                image: const AssetImage('assets/icon/logo.png'),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3,
+              ),
+              const Text(
+                'Find your best match with facemedating',
+                style: TextStyle(color: Colors.white),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton(
+                    buttonName: 'Log In',
+                    color: Colors.transparent,
+                    textColor: kSecondaryColor,
+                    function: () =>
+                        Navigator.pushNamed(context, LoginScreen.id),
+                  ),
+                  CustomButton(
+                    buttonName: 'Get Started',
+                    function: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, RegisterScreen.id);
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 

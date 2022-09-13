@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class _MatchScreenState extends State<MatchScreen> {
     try {
       if (_ignoreSwipeIds == null) {
         _ignoreSwipeIds = [];
-        var swipes = await _databaseSource.getSwipes(myUserId);
+        var swipes = await _databaseSource.getMatches(myUserId);
         for (var i = 0; i < swipes.size; i++) {
           // Since model Swipe is not same as the collection swipe so we shall directly access the ids
 
@@ -39,6 +41,7 @@ class _MatchScreenState extends State<MatchScreen> {
         }
         _ignoreSwipeIds!.add(myUserId!);
       }
+
       var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
 
       if (res.docs.length > 0) {
@@ -125,7 +128,8 @@ class _MatchScreenState extends State<MatchScreen> {
                             }
                             return Container(
                               child: Padding(
-                                padding: EdgeInsets.all(12.0),
+                                padding: EdgeInsets.only(
+                                    top: 20, left: 12, right: 12),
                                 child: Container(
                                   child: Column(
                                     crossAxisAlignment:

@@ -19,6 +19,7 @@ class UserProvider extends ChangeNotifier {
 
   bool isLoading = false;
   AppUser? _user;
+  // var id = FirebaseAuth.instance.currentUser!.uid;
 
   Future<AppUser?> get user => _getUser();
 
