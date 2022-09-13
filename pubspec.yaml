@@ -30,6 +30,7 @@ dependencies:
   flutter_custom_clippers: ^2.0.0
   cached_network_image: ^3.2.1
   country_state_city_picker: ^1.2.8
+  badges: ^2.0.3
 
 flutter_native_splash:
   color: "#000000"
@@ -50,7 +51,7 @@ flutter:
   assets:
     - images/
     - assets/icon/
-    - assets/images/
+    # - assets/images/
     - assets/asset/
   fonts:
     - family: Nunito

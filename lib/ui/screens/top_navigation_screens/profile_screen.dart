@@ -1,9 +1,13 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
+import 'package:tinder_app_flutter/ui/screens/account_verification_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/add_media_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/edit_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/setting_screen.dart';
@@ -13,6 +17,8 @@ import 'package:tinder_app_flutter/ui/widgets/input_dialog.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
+
+enum UserVerificationState { UNVERIFIED, VERIFIED, PENDING }
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -26,6 +32,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userProvider.logoutUser();
     Navigator.pop(context);
     Navigator.pushNamed(context, StartScreen.id);
+  }
+
+  UserVerificationState verificationState = UserVerificationState.UNVERIFIED;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserVerification();
   }
 
   @override
@@ -63,8 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      getProfileImage(
-                                          userSnapshot.data!, userProvider),
+                                      getProfileImage(size, userSnapshot.data!,
+                                          userProvider),
                                       SizedBox(
                                         height: 15,
                                       ),
@@ -324,15 +338,137 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget getProfileImage(AppUser user, UserProvider firebaseProvider) {
+  getUserVerification() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    Stream<DocumentSnapshot> userVerification = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('verification')
+        .doc('cnic_verification')
+        .snapshots();
+
+    userVerification.listen((snapshot) {
+      if (!snapshot.exists) {
+        setState(() {
+          verificationState = UserVerificationState.UNVERIFIED;
+        });
+      } else {
+        var document = snapshot.data() as Map;
+        if (document['status'] == 'pending') {
+          setState(() {
+            verificationState = UserVerificationState.PENDING;
+          });
+        } else if (document['status'] == 'verified') {
+          verificationState = UserVerificationState.VERIFIED;
+        }
+      }
+    });
+  }
+
+  Widget getProfileImage(size, AppUser user, UserProvider firebaseProvider) {
     return Stack(
       children: [
         Container(
-          child: CircleAvatar(
-            backgroundImage: CachedNetworkImageProvider(user.profilePhotoPath!),
-            backgroundColor: kGrey.withOpacity(0.1),
-            radius: 75,
-          ),
+          child: (verificationState == UserVerificationState.VERIFIED)
+              ? Badge(
+                  badgeColor: Colors.blue,
+                  toAnimate: false,
+                  padding: EdgeInsets.all(4),
+                  position: BadgePosition.topEnd(top: 0, end: 0),
+                  badgeContent: Padding(
+                    padding: const EdgeInsets.only(bottom: 0),
+                    child: Icon(
+                      Icons.verified,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    backgroundImage:
+                        CachedNetworkImageProvider(user.profilePhotoPath!),
+                    backgroundColor: kGrey.withOpacity(0.1),
+                    radius: 75,
+                  ),
+                )
+              : GestureDetector(
+                  onTap: (() {
+                    var alertDialogue = (verificationState ==
+                            UserVerificationState.PENDING)
+                        ? AlertDialog(
+                            title: Text(
+                              'Verification Pending!',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            content: Text(
+                                'Your account verification is on pending. Please wait until admin verifies you.'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Cancel')),
+                            ],
+                          )
+                        : AlertDialog(
+                            title: Text(
+                              'Account unvarified!',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            content: Text(
+                                'Please verify your account to avoid restrictions.'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Cancel')),
+                              Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return AccountVerificationScreen();
+                                        }));
+                                      },
+                                      child: Text(
+                                        'Verify',
+                                        style: TextStyle(color: Colors.white),
+                                      ))),
+                            ],
+                          );
+
+                    showDialog(
+                        context: context, builder: (context) => alertDialogue);
+                  }),
+                  child: Badge(
+                    badgeColor: Colors.yellow.shade700,
+                    toAnimate: false,
+                    padding: EdgeInsets.all(4),
+                    position: BadgePosition.topEnd(top: 0, end: 0),
+                    badgeContent: Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Icon(
+                        Icons.warning,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          CachedNetworkImageProvider(user.profilePhotoPath!),
+                      backgroundColor: kGrey.withOpacity(0.1),
+                      radius: 75,
+                    ),
+                  ),
+                )
+          //   ;
+          // })
+          ,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: kSecondaryColor, width: 1.0),
