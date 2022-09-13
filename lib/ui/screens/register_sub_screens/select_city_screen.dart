@@ -38,25 +38,25 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
                   image: AssetImage('assets/icon/text.png'),
                 ),
               ),
-              SizedBox(height: 25),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Text(
-                      'Your Location',
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  ],
-                ),
-              )
+              // SizedBox(height: 25),
+              // Container(
+              //   alignment: Alignment.centerLeft,
+              //   child: Column(
+              //     children: [
+              //       Text(
+              //         'Your Location',
+              //         style: Theme.of(context).textTheme.headline3,
+              //       ),
+              //     ],
+              //   ),
+              // )
             ],
           ),
         ),
         SizedBox(height: 30),
         Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            height: 200,
+            height: 300,
             child: Column(
               children: [
                 SelectState(

@@ -52,6 +52,7 @@ class _MatchScreenState extends State<MatchScreen> {
       }
     } catch (e) {
       print('--------------------------------');
+      print('thats the error bro');
       print(e.toString());
     }
     return null;
@@ -82,6 +83,7 @@ class _MatchScreenState extends State<MatchScreen> {
   }
 
   Future<bool> isMatch(AppUser myUser, AppUser otherUser) async {
+    print(myUser);
     DocumentSnapshot swipeSnapshot =
         await _databaseSource.getSwipe(otherUser.id, myUser.id);
     if (swipeSnapshot.exists) {
@@ -126,6 +128,7 @@ class _MatchScreenState extends State<MatchScreen> {
                                 child: Container(),
                               );
                             }
+
                             return Container(
                               child: Padding(
                                 padding: EdgeInsets.only(
