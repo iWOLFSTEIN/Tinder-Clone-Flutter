@@ -9,8 +9,8 @@ import 'package:tinder_app_flutter/ui/screens/register_sub_screens/age_screen.da
 import 'package:tinder_app_flutter/ui/screens/register_sub_screens/email_and_password_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_sub_screens/name_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/register_sub_screens/select_city_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
-import 'package:tinder_app_flutter/ui/widgets/rounded_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 import 'package:tinder_app_flutter/util/utils.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
@@ -25,7 +25,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final UserRegistration _userRegistration = UserRegistration();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final int _endScreenIndex = 3;
+  final int _endScreenIndex = 4;
   int _currentScreenIndex = 0;
   bool _isLoading = false;
   late UserProvider _userProvider;
@@ -79,6 +79,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             onPhotoChanged: (value) =>
                 {_userRegistration.localProfilePhotoPath = value});
       case 3:
+        return SelectCityScreen(
+          onCountryChnaged: (value) {
+            _userRegistration.city['country'] = value;
+            print('country $value');
+            print(_userRegistration.city);
+          },
+          onStateChanged: (value) {
+            _userRegistration.city['state'] = value;
+            print('state $value');
+            print(_userRegistration.city);
+          },
+          onCityChnaged: (value) {
+            _userRegistration.city['city'] = value;
+            print('city $value');
+            print(_userRegistration.city);
+          },
+        );
+      case 4:
         return EmailAndPasswordScreen(
             emailOnChanged: (value) => {_userRegistration.email = value},
             passwordOnChanged: (value) => {_userRegistration.password = value});
@@ -95,6 +113,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return (_userRegistration.age >= 13 && _userRegistration.age <= 120);
       case 2:
         return _userRegistration.localProfilePhotoPath.isNotEmpty;
+      case 3:
+        return _userRegistration.city.length == 3;
       default:
         return false;
     }
@@ -108,6 +128,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return "Invalid age";
       case 2:
         return "Invalid photo";
+      case 3:
+        return "select all the fields";
       default:
         return "";
     }
