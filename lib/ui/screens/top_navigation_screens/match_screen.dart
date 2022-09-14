@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +35,6 @@ class _MatchScreenState extends State<MatchScreen> {
 
           // Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
           // _ignoreSwipeIds!.add(swipe.id!);
-          print(swipes.docs[i].id);
           _ignoreSwipeIds!.add(swipes.docs[i].id);
         }
         _ignoreSwipeIds!.add(myUserId!);
