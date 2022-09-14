@@ -29,6 +29,7 @@ dependencies:
   flutter_svg: ^1.1.4
   flutter_custom_clippers: ^2.0.0
   cached_network_image: ^3.2.1
+  country_state_city_picker: ^1.2.8
   badges: ^2.0.3
 
 flutter_native_splash:

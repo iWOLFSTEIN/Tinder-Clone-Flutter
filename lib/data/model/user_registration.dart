@@ -4,4 +4,5 @@ class UserRegistration {
   String email = '';
   String password = '';
   String localProfilePhotoPath = '';
+  Map<String, dynamic> city = {};
 }
