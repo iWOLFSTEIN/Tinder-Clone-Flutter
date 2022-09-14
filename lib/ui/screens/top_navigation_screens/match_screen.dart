@@ -20,7 +20,8 @@ class MatchScreen extends StatefulWidget {
   _MatchScreenState createState() => _MatchScreenState();
 }
 
-class _MatchScreenState extends State<MatchScreen> {
+class _MatchScreenState extends State<MatchScreen>
+    with AutomaticKeepAliveClientMixin {
   final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String>? _ignoreSwipeIds;
@@ -47,11 +48,7 @@ class _MatchScreenState extends State<MatchScreen> {
 
       var res =
           await _databaseSource.getPersonsToMatchWith(100, _ignoreSwipeIds);
-      print(res.docs.length);
-      for (var items in res.docs) {
-        print(items.id);
-      }
-      print("SEP");
+
       var docs = res.docs.toList();
 
       docs.sort((a, b) {
@@ -77,9 +74,7 @@ class _MatchScreenState extends State<MatchScreen> {
         } else
           return 0;
       });
-      for (var items in res.docs) {
-        print(items.id);
-      }
+
       if (docs.length > 0) {
         var userToMatchWith = AppUser.fromSnapshot(docs[0]);
         return userToMatchWith;
@@ -164,6 +159,7 @@ class _MatchScreenState extends State<MatchScreen> {
                                 child: Container(),
                               );
                             }
+                            // print(snapshot.data!.name);
                             return Container(
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -225,4 +221,8 @@ class _MatchScreenState extends State<MatchScreen> {
           },
         )));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

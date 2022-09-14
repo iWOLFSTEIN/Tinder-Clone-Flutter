@@ -80,15 +80,15 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
                   },
                 ),
                 InkWell(
-                    onTap: () {
-                      print('country selected is $countryValue');
-                      print('country selected is $stateValue');
-                      print('country selected is $cityValue');
-                    },
-                    child: Text(
-                      ' Check',
-                      selectionColor: Colors.black,
-                    )),
+                  onTap: () {
+                    print('country selected is $countryValue');
+                    print('country selected is $stateValue');
+                    print('country selected is $cityValue');
+                  },
+                  child: Text(' Check',
+                      // selectionColor: Colors.black,
+                      style: TextStyle(color: Colors.black)),
+                )
               ],
             )),
       ],

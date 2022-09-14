@@ -34,11 +34,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Navigator.pushNamed(context, StartScreen.id);
   }
 
-  UserVerificationState verificationState = UserVerificationState.UNVERIFIED;
+  UserVerificationState? verificationState;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    verificationState = UserVerificationState.UNVERIFIED;
     getUserVerification();
   }
 
@@ -355,11 +356,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       } else {
         var document = snapshot.data() as Map;
         if (document['status'] == 'pending') {
-          setState(() {
-            verificationState = UserVerificationState.PENDING;
-          });
+          if (this.mounted)
+            setState(() {
+              verificationState = UserVerificationState.PENDING;
+            });
         } else if (document['status'] == 'verified') {
-          verificationState = UserVerificationState.VERIFIED;
+          if (this.mounted)
+            setState(() {
+              verificationState = UserVerificationState.VERIFIED;
+            });
         }
       }
     });
