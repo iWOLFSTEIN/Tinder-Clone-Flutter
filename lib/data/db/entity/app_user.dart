@@ -21,7 +21,7 @@ class AppUser {
     age = snapshot['age'];
     profilePhotoPath = snapshot['profile_photo_path'];
     bio = snapshot.get('bio') ?? '';
-    city = city;
+    city = snapshot['city'];
   }
 
   Map<String, dynamic> toMap() {

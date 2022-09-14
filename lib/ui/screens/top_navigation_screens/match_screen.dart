@@ -26,11 +26,16 @@ class _MatchScreenState extends State<MatchScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String>? _ignoreSwipeIds;
 
-  Future<AppUser?> loadPerson(String? myUserId) async {
+  Future<AppUser?> loadPerson(AppUser user) async {
     try {
+      var userCity = user.city!["city"];
+      var userCountry = user.city!["country"];
+      var userState = user.city!["state"];
+
       if (_ignoreSwipeIds == null) {
         _ignoreSwipeIds = [];
-        var swipes = await _databaseSource.getMatches(myUserId);
+        var swipes = await _databaseSource.getMatches(user.id);
+
         for (var i = 0; i < swipes.size; i++) {
           // Since model Swipe is not same as the collection swipe so we shall directly access the ids
 
@@ -39,13 +44,46 @@ class _MatchScreenState extends State<MatchScreen> {
           print(swipes.docs[i].id);
           _ignoreSwipeIds!.add(swipes.docs[i].id);
         }
-        _ignoreSwipeIds!.add(myUserId!);
+        _ignoreSwipeIds!.add(user.id!);
       }
 
-      var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
+      var res =
+          await _databaseSource.getPersonsToMatchWith(100, _ignoreSwipeIds);
+      print(res.docs.length);
+      for (var items in res.docs) {
+        print(items.id);
+      }
+      print("SEP");
+      var docs = res.docs.toList();
 
-      if (res.docs.length > 0) {
-        var userToMatchWith = AppUser.fromSnapshot(res.docs.first);
+      docs.sort((a, b) {
+        var cityA = AppUser.fromSnapshot(a).city!["city"];
+        var stateA = AppUser.fromSnapshot(a).city!["state"];
+        var countryA = AppUser.fromSnapshot(a).city!["country"];
+        var cityB = AppUser.fromSnapshot(b).city!["city"];
+        var stateB = AppUser.fromSnapshot(b).city!["state"];
+        var countryB = AppUser.fromSnapshot(b).city!["country"];
+
+        if (cityA == userCity) {
+          return -1;
+        } else if (cityB == userCity) {
+          return 1;
+        } else if (stateA == userState) {
+          return -1;
+        } else if (stateB == userState) {
+          return 1;
+        } else if (countryA == userCountry) {
+          return -1;
+        } else if (countryB == userCountry) {
+          return 1;
+        } else
+          return 0;
+      });
+      for (var items in res.docs) {
+        print(items.id);
+      }
+      if (docs.length > 0) {
+        var userToMatchWith = AppUser.fromSnapshot(docs[0]);
         return userToMatchWith;
       } else {
         return null;
@@ -109,7 +147,7 @@ class _MatchScreenState extends State<MatchScreen> {
                   inAsyncCall: userProvider.isLoading,
                   child: (userSnapshot.hasData)
                       ? FutureBuilder<AppUser?>(
-                          future: loadPerson(userSnapshot.data!.id),
+                          future: loadPerson(userSnapshot.data!),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                     ConnectionState.done &&
@@ -128,7 +166,6 @@ class _MatchScreenState extends State<MatchScreen> {
                                 child: Container(),
                               );
                             }
-
                             return Container(
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -177,37 +214,6 @@ class _MatchScreenState extends State<MatchScreen> {
                                           ),
                                         ),
                                       ),
-
-                                      /*    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        RoundedIconButton(
-                                          onPressed: () {
-                                            personSwiped(
-                                                userSnapshot.data,
-                                                snapshot.data,
-                                                false);
-                                          },
-                                          iconData: Icons.clear,
-                                          buttonColor:
-                                              kColorPrimaryVariant,
-                                          iconSize: 30,
-                                        ),
-                                        RoundedIconButton(
-                                          onPressed: () {
-                                            personSwiped(
-                                                userSnapshot.data,
-                                                snapshot.data,
-                                                true);
-                                          },
-                                          iconData: Icons.favorite,
-                                          iconSize: 30,
-                                        ),
-                                      ],
-                                      ),*/
                                     ],
                                   ),
                                 ),
