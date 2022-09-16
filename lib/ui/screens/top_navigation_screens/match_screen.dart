@@ -23,8 +23,8 @@ class MatchScreen extends StatefulWidget {
 class _MatchScreenState extends State<MatchScreen>
     with AutomaticKeepAliveClientMixin {
   final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String>? _ignoreSwipeIds;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<AppUser?> loadPerson(AppUser user) async {
     try {
