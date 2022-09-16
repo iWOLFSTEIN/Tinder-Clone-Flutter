@@ -485,7 +485,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: RoundedIconButton(
             onPressed: () async {
               final pickedFile =
-                  await ImagePicker().getImage(source: ImageSource.gallery);
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
               if (pickedFile != null) {
                 firebaseProvider.updateUserProfilePhoto(
                     pickedFile.path, _scaffoldKey, context);

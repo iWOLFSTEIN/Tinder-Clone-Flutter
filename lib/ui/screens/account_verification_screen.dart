@@ -25,7 +25,7 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
   var userId = FirebaseAuth.instance.currentUser!.uid;
 
   Future pickImageFromGallery() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) return pickedFile.path;
   }
 

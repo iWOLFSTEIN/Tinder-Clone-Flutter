@@ -7,7 +7,6 @@ import 'package:tinder_app_flutter/ui/screens/bottom_navigation_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/bordered_text_field.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
-import 'package:tinder_app_flutter/ui/widgets/rounded_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
 class LoginScreen extends StatefulWidget {

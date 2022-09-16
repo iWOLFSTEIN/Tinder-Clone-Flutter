@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 import 'package:tinder_app_flutter/util/utils.dart';
