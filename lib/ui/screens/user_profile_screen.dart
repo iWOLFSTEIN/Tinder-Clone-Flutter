@@ -57,8 +57,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     bool match = await isAMatch(uid, widget.userDataDocument['id']);
     bool requested = await isRequested(uid, widget.userDataDocument['id']);
 
-    print('progress .....');
-
     if (match) if (requested)
       userMatchedStatus = UserMatchedStatus.MATCHED;
     else
@@ -95,7 +93,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ]),
                 child: Padding(
                   padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 40),
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -136,7 +134,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.6))),
                       SizedBox(
-                        height: 15,
+                        height: 25,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -147,10 +145,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '${widget.userDataDocument['name']}',
-                                  style: Theme.of(context).textTheme.headline3,
-                                  overflow: TextOverflow.ellipsis,
+                                Container(
+                                  width: size.width * 62.5 / 100,
+                                  // color: Colors.orange,
+                                  child: Text(
+                                    '${widget.userDataDocument['name']}',
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 Text(
                                     '${widget.userDataDocument['age']} years old',
@@ -159,8 +162,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                         fontSize: 16)),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -181,11 +183,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     child: Container(
                                       width: 45,
                                       height: 45,
+                                      // color: Colors.blue,
                                       child: Stack(
                                         children: [
                                           Container(
-                                            width: 80,
-                                            height: 80,
+                                            width: 45,
+                                            height: 45,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color: (userMatchedStatus ==
@@ -293,7 +296,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           SizedBox(height: 5),
           Wrap(children: [
             Text(
-              user['bio'].length > 0 ? user.bio : "No bio ",
+              user['bio'].length > 0 ? user['bio'] : "No bio ",
               style: TextStyle(color: kSecondaryColor),
             ),
           ]),

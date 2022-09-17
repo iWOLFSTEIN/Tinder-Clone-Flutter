@@ -9,6 +9,7 @@ import 'package:tinder_app_flutter/data/db/entity/swipe.dart';
 import 'package:tinder_app_flutter/data/db/remote/firebase_database_source.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
 import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/user_profile_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/ui/widgets/swipe_card.dart';
@@ -169,7 +170,27 @@ class _MatchScreenState extends State<MatchScreen>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      SwipeCard(person: snapshot.data),
+                                      GestureDetector(
+                                          onTap: () {
+                                            var document = {
+                                              'name': snapshot.data!.name,
+                                              'age': snapshot.data!.age,
+                                              'bio': snapshot.data!.bio,
+                                              'id': snapshot.data!.id,
+                                              'profile_photo_path': snapshot
+                                                  .data!.profilePhotoPath,
+                                              'city': snapshot.data!.city
+                                            };
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return UserProfileScreen(
+                                                userDataDocument: document,
+                                              );
+                                            }));
+                                          },
+                                          child:
+                                              SwipeCard(person: snapshot.data)),
                                       Expanded(
                                         child: Container(
                                           margin: EdgeInsets.symmetric(
