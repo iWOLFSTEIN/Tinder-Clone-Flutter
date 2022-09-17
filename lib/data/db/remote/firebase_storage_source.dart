@@ -32,4 +32,19 @@ class FirebaseStorageSource {
       return Response.error(((e as FirebaseException).message ?? e.toString()));
     }
   }
+
+  Future<Response<String>> uploadMedia(
+      {required String? filePath,
+      required String? userId,
+      required String? imageName}) async {
+    String userPhotoPath = "user_photos/$userId/media/$imageName";
+
+    try {
+      await instance.ref(userPhotoPath).putFile(File(filePath!));
+      String downloadUrl = await instance.ref(userPhotoPath).getDownloadURL();
+      return Response.success(downloadUrl);
+    } catch (e) {
+      return Response.error(((e as FirebaseException).message ?? e.toString()));
+    }
+  }
 }

@@ -39,7 +39,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   UserMatchedStatus? userMatchedStatus;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserVerification(widget.userDataDocument['id']);
     getUserMatchStatus();

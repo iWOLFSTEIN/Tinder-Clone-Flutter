@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/media_preview_screen.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
+import 'package:tinder_app_flutter/util/utils.dart';
 
 class AddMediaScreen extends StatefulWidget {
   AddMediaScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class AddMediaScreen extends StatefulWidget {
 }
 
 class _AddMediaScreenState extends State<AddMediaScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final picker = ImagePicker();
   List<XFile>? imageFileList;
 
@@ -21,19 +23,20 @@ class _AddMediaScreenState extends State<AddMediaScreen> {
         setState(() {
           imageFileList = value;
         });
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => MediaPreviewScreen(
-                    imageFileList: imageFileList,
-                  )),
-        );
+        if (imageFileList!.length < 6) {
+          showSnackBar(_scaffoldKey, 'please select exact 6 images', context);
+        } else {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MediaPreviewScreen(
+                      imageFileList: imageFileList!.getRange(0, 6).toList(),
+                    )),
+          );
+        }
         return null;
       });
-      // setState(() {
-      //   imageFileList = pickedFileList;
-      // });
     } catch (e) {
       print(e.toString());
     }
