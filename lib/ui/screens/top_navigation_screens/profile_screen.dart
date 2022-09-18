@@ -11,7 +11,7 @@ import 'package:tinder_app_flutter/ui/screens/account_verification_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/add_media_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/edit_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/setting_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/show_media_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/input_dialog.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -28,16 +28,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void logoutPressed(UserProvider userProvider, BuildContext context) async {
-    userProvider.logoutUser();
-    Navigator.pop(context);
-    Navigator.pushNamed(context, StartScreen.id);
-  }
-
   UserVerificationState? verificationState;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     verificationState = UserVerificationState.UNVERIFIED;
     getUserVerification();
@@ -56,146 +49,121 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return CustomModalProgressHUD(
                   inAsyncCall: userProvider.isLoading,
                   child: userSnapshot.hasData
-                      ? Column(
-                          children: [
-                            ClipPath(
-                              clipper: OvalBottomBorderClipper(),
-                              child: Container(
-                                width: size.width,
-                                height: size.height * 0.60,
-                                decoration: BoxDecoration(
-                                    color: kGrey.withOpacity(0.1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: kGrey.withOpacity(0.1),
-                                        spreadRadius: 10,
-                                        blurRadius: 10,
-                                      ),
-                                    ]),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30, right: 30, bottom: 40),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      getProfileImage(size, userSnapshot.data!,
-                                          userProvider),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                          '${userSnapshot.data!.name}, ${userSnapshot.data!.age}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () =>
-                                                    Navigator.pushNamed(context,
-                                                        SettingScreen.id),
-                                                child: Container(
-                                                  width: 60,
-                                                  height: 60,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: kPrimaryColor,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: kSecondaryColor
-                                                            .withOpacity(0.1),
-                                                        spreadRadius: 10,
-                                                        blurRadius: 15,
-                                                        // changes position of shadow
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.settings,
-                                                    size: 35,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                "SETTINGS",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: kSecondaryColor,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
-                                            child: Column(
+                      ? SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ClipPath(
+                                clipper: OvalBottomBorderClipper(),
+                                child: Container(
+                                  width: size.width,
+                                  height: size.height * 0.60,
+                                  decoration: BoxDecoration(
+                                      color: kGrey.withOpacity(0.1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kGrey.withOpacity(0.1),
+                                          spreadRadius: 10,
+                                          blurRadius: 10,
+                                        ),
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30, right: 30, bottom: 40),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        getProfileImage(size,
+                                            userSnapshot.data!, userProvider),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                            '${userSnapshot.data!.name}, ${userSnapshot.data!.age}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
                                               children: [
                                                 GestureDetector(
-                                                  onTap: () =>
-                                                      Navigator.pushNamed(
-                                                          context,
-                                                          AddMediaScreen.id),
+                                                  onTap: () => Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SettingScreen(
+                                                                  userProvider:
+                                                                      userProvider))),
                                                   child: Container(
-                                                    width: 85,
-                                                    height: 85,
-                                                    child: Stack(
-                                                      children: [
-                                                        Container(
-                                                          width: 80,
-                                                          height: 80,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: kGrey,
-                                                            // .withOpacity(0.5),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: kPrimaryColor
-                                                                    .withOpacity(
-                                                                        0.1),
-                                                                spreadRadius:
-                                                                    10,
-                                                                blurRadius: 15,
-                                                                // changes position of shadow
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          child: Icon(
-                                                            Icons.camera_alt,
-                                                            size: 45,
-                                                            color: Colors.white,
-                                                          ),
+                                                    width: 60,
+                                                    height: 60,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: kPrimaryColor,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: kSecondaryColor
+                                                              .withOpacity(0.1),
+                                                          spreadRadius: 10,
+                                                          blurRadius: 15,
+                                                          // changes position of shadow
                                                         ),
-                                                        Positioned(
-                                                          bottom: 8,
-                                                          right: 0,
-                                                          child: Container(
-                                                            width: 25,
-                                                            height: 25,
+                                                      ],
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.settings,
+                                                      size: 35,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "SETTINGS",
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: kSecondaryColor,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20),
+                                              child: Column(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () =>
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            AddMediaScreen.id),
+                                                    child: Container(
+                                                      width: 85,
+                                                      height: 85,
+                                                      child: Stack(
+                                                        children: [
+                                                          Container(
+                                                            width: 80,
+                                                            height: 80,
                                                             decoration:
                                                                 BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
-                                                              color:
-                                                                  kSecondaryColor,
+                                                              color: kGrey,
+                                                              // .withOpacity(0.5),
                                                               boxShadow: [
                                                                 BoxShadow(
-                                                                  color: kSecondaryColor
+                                                                  color: kPrimaryColor
                                                                       .withOpacity(
                                                                           0.1),
                                                                   spreadRadius:
@@ -206,96 +174,132 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 ),
                                                               ],
                                                             ),
-                                                            child: Center(
-                                                              child: Icon(
-                                                                Icons.add,
-                                                                color:
-                                                                    kPrimaryColor,
-                                                              ),
+                                                            child: Icon(
+                                                              Icons.camera_alt,
+                                                              size: 45,
+                                                              color:
+                                                                  Colors.white,
                                                             ),
                                                           ),
-                                                        )
+                                                          Positioned(
+                                                            bottom: 8,
+                                                            right: 0,
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color:
+                                                                    kSecondaryColor,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: kSecondaryColor
+                                                                        .withOpacity(
+                                                                            0.1),
+                                                                    spreadRadius:
+                                                                        10,
+                                                                    blurRadius:
+                                                                        15,
+                                                                    // changes position of shadow
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: Center(
+                                                                child: Icon(
+                                                                  Icons.add,
+                                                                  color:
+                                                                      kPrimaryColor,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text("ADD MEDIA",
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: kSecondaryColor,
+                                                      ))
+                                                ],
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(
+                                                        context, EditScreen.id);
+                                                  },
+                                                  child: Container(
+                                                    width: 60,
+                                                    height: 60,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: kPrimaryColor,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: kSecondaryColor
+                                                              .withOpacity(0.1),
+                                                          spreadRadius: 10,
+                                                          blurRadius: 15,
+                                                          // changes position of shadow
+                                                        ),
                                                       ],
                                                     ),
+                                                    child: Icon(Icons.edit,
+                                                        size: 35,
+                                                        color: Colors.grey),
                                                   ),
                                                 ),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
-                                                Text("ADD MEDIA",
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: kSecondaryColor,
-                                                    ))
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.pushNamed(
-                                                      context, EditScreen.id);
-                                                },
-                                                child: Container(
-                                                  width: 60,
-                                                  height: 60,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: kPrimaryColor,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: kSecondaryColor
-                                                            .withOpacity(0.1),
-                                                        spreadRadius: 10,
-                                                        blurRadius: 15,
-                                                        // changes position of shadow
-                                                      ),
-                                                    ],
+                                                Text(
+                                                  "EDIT INFO",
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: kSecondaryColor,
                                                   ),
-                                                  child: Icon(Icons.edit,
-                                                      size: 35,
-                                                      color: Colors.grey),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                "EDIT INFO",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: kSecondaryColor,
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: getBio(userSnapshot.data!, userProvider),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 30),
-                              child: CustomButton(
-                                  color: kSecondaryColor,
-                                  buttonName: 'LOGOUT',
-                                  width: 300,
-                                  height: 50,
-                                  function: () {
-                                    logoutPressed(userProvider, context);
-                                  }),
-                            )
-                          ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: getBio(userSnapshot.data!, userProvider),
+                              ),
+                              Text(
+                                'Media',
+                                style: TextStyle(
+                                    color: kSecondaryColor, fontSize: 24),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  height: size.height * 0.35,
+                                  child: showMedia(
+                                      context,
+                                      _scaffoldKey,
+                                      userSnapshot.data!.id,
+                                      size.height,
+                                      size.width))
+                            ],
+                          ),
                         )
                       : Container());
             });

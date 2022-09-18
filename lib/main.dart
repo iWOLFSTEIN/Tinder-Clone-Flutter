@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:tinder_app_flutter/data/provider/media_provider.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
 import 'package:tinder_app_flutter/ui/screens/chat_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/login_screen.dart';
@@ -33,7 +34,10 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(systemNavigationBarColor: Colors.black));
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => MediaProvider())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -91,7 +95,7 @@ class MyApp extends StatelessWidget {
                 myUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['user_id'],
               ),
-          SettingScreen.id: (context) => SettingScreen(),
+          // SettingScreen.id: (context) => SettingScreen(userProvider:),
           EditScreen.id: (context) => EditScreen(),
           AddMediaScreen.id: (context) => AddMediaScreen(),
         },
