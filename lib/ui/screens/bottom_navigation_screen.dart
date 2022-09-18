@@ -56,7 +56,7 @@ class BottomNavigationScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height -
-                  tabBar.preferredSize.height -
+                  // tabBar.preferredSize.height -
                   appBar.preferredSize.height,
               width: MediaQuery.of(context).size.width,
               child: Container(
@@ -149,7 +149,6 @@ class BottomNavigationScreen extends StatelessWidget {
 //     );
 //   }
 // }
-
 
 // class BottomNavigationScreen extends StatefulWidget {
 //   const BottomNavigationScreen({Key? key}) : super(key: key);

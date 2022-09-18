@@ -37,7 +37,11 @@ class MediaProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<UserMediaEntity?> getMedia(uid, context, key) async {
+  Future<UserMediaEntity?> getMedia(
+    uid,
+    // context,
+    //  key
+  ) async {
     if (userMediaE != null) return userMediaE;
     isLoading = true;
     userMediaE = UserMediaEntity.fromSnapshot(

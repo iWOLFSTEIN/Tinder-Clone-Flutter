@@ -151,6 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       width: 85,
                                                       height: 85,
                                                       child: Stack(
+                                                        // fit: StackFit.expand,
                                                         children: [
                                                           Container(
                                                             width: 80,
@@ -284,20 +285,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 15),
                                 child: getBio(userSnapshot.data!, userProvider),
                               ),
-                              Text(
-                                'Media',
-                                style: TextStyle(
-                                    color: kSecondaryColor, fontSize: 24),
+                              SizedBox(
+                                height: 25,
                               ),
-                              Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  height: size.height * 0.35,
-                                  child: showMedia(
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(horizontal: 15),
+                              //   child: Align(
+                              //     alignment: Alignment.centerLeft,
+                              //     child: Text('Media',
+                              //         // style: TextStyle(
+                              //         //     color: kSecondaryColor, fontSize: 24
+
+                              //         //     ),
+                              //         style: Theme.of(context)
+                              //             .textTheme
+                              //             .headline4),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 15,
+                              // ),
+                              (userSnapshot.data!.id == null)
+                                  ? Container()
+                                  : showMedia(
                                       context,
-                                      _scaffoldKey,
+                                      // _scaffoldKey,
                                       userSnapshot.data!.id,
                                       size.height,
-                                      size.width))
+                                      size.width),
+
+                              SizedBox(
+                                height: 25,
+                              ),
                             ],
                           ),
                         )
@@ -308,38 +327,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget getBio(AppUser user, UserProvider userProvider) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Bio', style: Theme.of(context).textTheme.headline4),
-            RoundedIconButton(
-              buttonColor: kSecondaryColor,
-              onPressed: () {
-                showDialog(
-                  barrierColor: Colors.white,
-                  context: context,
-                  builder: (_) => InputDialog(
-                    onSavePressed: (value) => userProvider.updateUserBio(value),
-                    labelText: 'Bio',
-                    startInputText: user.bio,
-                  ),
-                );
-              },
-              iconData: Icons.edit,
-              iconSize: 18,
-              paddingReduce: 4,
-            ),
-          ],
-        ),
-        SizedBox(height: 5),
-        Text(
-          user.bio.length > 0 ? user.bio : "No bio.",
-          style: TextStyle(color: kSecondaryColor),
-        ),
-      ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Bio', style: Theme.of(context).textTheme.headline4),
+              RoundedIconButton(
+                buttonColor: kSecondaryColor,
+                onPressed: () {
+                  showDialog(
+                    barrierColor: Colors.white,
+                    context: context,
+                    builder: (_) => InputDialog(
+                      onSavePressed: (value) =>
+                          userProvider.updateUserBio(value),
+                      labelText: 'Bio',
+                      startInputText: user.bio,
+                    ),
+                  );
+                },
+                iconData: Icons.edit,
+                iconSize: 18,
+                paddingReduce: 4,
+              ),
+            ],
+          ),
+          SizedBox(height: 5),
+          Wrap(
+            children: [
+              Text(
+                user.bio.length > 0 ? user.bio : "No bio.",
+                style: TextStyle(color: kSecondaryColor),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

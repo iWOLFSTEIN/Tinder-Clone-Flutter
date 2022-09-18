@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
+import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/show_media_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/top_navigation_screens/profile_screen.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
@@ -255,25 +256,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: getBio(size, widget.userDataDocument),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-              child: GridView.count(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  for (var i = 0; i <= 10; i++)
-                    Container(
-                      decoration: BoxDecoration(
-                          color: kGrey.withOpacity(0.3),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                    )
-                ],
-              ),
-            )
+            // Padding(
+            //   padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+            //   child: GridView.count(
+            //     crossAxisCount: 3,
+            //     crossAxisSpacing: 10,
+            //     mainAxisSpacing: 10,
+            //     scrollDirection: Axis.vertical,
+            //     shrinkWrap: true,
+            //     physics: NeverScrollableScrollPhysics(),
+            //     children: [
+            //       for (var i = 0; i <= 10; i++)
+            //         Container(
+            //   decoration: BoxDecoration(
+            //       color: kGrey.withOpacity(0.3),
+            //       borderRadius: BorderRadius.all(Radius.circular(10))),
+            // )
+            //     ],
+            //   ),
+            // )
+            showMedia(
+                context, widget.userDataDocument['id'], size.height, size.width)
           ],
         ),
       ),

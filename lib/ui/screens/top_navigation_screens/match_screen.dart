@@ -172,22 +172,22 @@ class _MatchScreenState extends State<MatchScreen>
                                     children: [
                                       GestureDetector(
                                           onTap: () {
-                                            var document = {
-                                              'name': snapshot.data!.name,
-                                              'age': snapshot.data!.age,
-                                              'bio': snapshot.data!.bio,
-                                              'id': snapshot.data!.id,
-                                              'profile_photo_path': snapshot
-                                                  .data!.profilePhotoPath,
-                                              'city': snapshot.data!.city
-                                            };
-                                            Navigator.push(context,
-                                                MaterialPageRoute(
-                                                    builder: (context) {
-                                              return UserProfileScreen(
-                                                userDataDocument: document,
-                                              );
-                                            }));
+                                            // var document = {
+                                            //   'name': snapshot.data!.name,
+                                            //   'age': snapshot.data!.age,
+                                            //   'bio': snapshot.data!.bio,
+                                            //   'id': snapshot.data!.id,
+                                            //   'profile_photo_path': snapshot
+                                            //       .data!.profilePhotoPath,
+                                            //   'city': snapshot.data!.city
+                                            // };
+                                            // Navigator.push(context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) {
+                                            //   return UserProfileScreen(
+                                            //     userDataDocument: document,
+                                            //   );
+                                            // }));
                                           },
                                           child:
                                               SwipeCard(person: snapshot.data)),
