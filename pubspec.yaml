@@ -31,6 +31,10 @@ dependencies:
   cached_network_image: ^3.2.1
   country_state_city_picker: ^1.2.8
   badges: ^2.0.3
+  agora_rtc_engine: ^5.3.0
+  permission_handler: ^9.0.2
+  # permission_handler: ^10.0.1
+  # volume: ^1.0.1
 
 flutter_native_splash:
   color: "#000000"

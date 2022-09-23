@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tinder_app_flutter/ui/screens/LiveStreamingScreen.dart';
 import 'package:tinder_app_flutter/ui/screens/top_navigation_screens/profile_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/top_navigation_screens/search_screen.dart';
 import '../../data/model/top_navigation_item.dart';
@@ -13,6 +14,10 @@ class BottomNavigationScreen extends StatelessWidget {
     TopNavigationItem(
       screen: MatchScreen(),
       image: "assets/asset/explore_active_icon.svg",
+    ),
+    TopNavigationItem(
+      screen: LiveStreamingScreen(),
+      image: "assets/asset/thunder_icon.svg",
     ),
     TopNavigationItem(
       screen: SearchScreen(),
