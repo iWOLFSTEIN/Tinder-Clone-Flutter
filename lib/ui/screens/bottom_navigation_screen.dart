@@ -17,7 +17,7 @@ class BottomNavigationScreen extends StatelessWidget {
     ),
     TopNavigationItem(
       screen: LiveStreamingScreen(),
-      image: "assets/asset/thunder_icon.svg",
+      image: "assets/asset/video_stream.svg",
     ),
     TopNavigationItem(
       screen: SearchScreen(),

@@ -33,8 +33,8 @@ class _StreamingState extends State<Streaming> {
   final _infoStrings = <String>[];
   bool muted = false;
   RtcEngine? _engine;
-  final APP_ID = "fb6325f90dde442a8b16aeb5be262992";
-  final TOKEN =
+  final appId = "fb6325f90dde442a8b16aeb5be262992";
+  final token =
       "007eJxTYPg8VdR29jbW3r9m3SKHD6z0u39gs3qX2S8esfUHUt62VzkoMKQlmRkbmaZZGqSkpJqYGCVaJBmaJaYmmSalGpkZWVoaFbfoJn+8qpd8JzueiZEBAkF8doaS1OKSzLx0BgYAOD4keA==";
 
   var comment = TextEditingController();
@@ -84,7 +84,7 @@ class _StreamingState extends State<Streaming> {
   }
 
   Future<void> initialize() async {
-    if (APP_ID.isEmpty) {
+    if (appId.isEmpty) {
       setState(() {
         _infoStrings.add(
           'APP_ID missing, please provide your APP_ID in settings.dart',
@@ -100,12 +100,12 @@ class _StreamingState extends State<Streaming> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine!.setVideoEncoderConfiguration(configuration);
-    await _engine!.joinChannel(TOKEN, widget.channelName, null, 0);
+    await _engine!.joinChannel(token, widget.channelName, null, 0);
   }
 
   /// Create agora sdk instance and initialize
   Future<void> _initAgoraRtcEngine() async {
-    _engine = await RtcEngine.create(APP_ID);
+    _engine = await RtcEngine.create(appId);
     await _engine!.enableVideo();
     await _engine!.enableAudio();
     await _engine!.setChannelProfile(ChannelProfile.LiveBroadcasting);
