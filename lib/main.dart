@@ -9,7 +9,6 @@ import 'package:tinder_app_flutter/ui/screens/login_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/add_media_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/edit_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/profile_sub_screens/setting_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/register_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/splash_screen.dart';
 import 'package:tinder_app_flutter/ui/screens/start_screen.dart';
