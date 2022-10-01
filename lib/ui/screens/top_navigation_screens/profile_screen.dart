@@ -17,6 +17,8 @@ import 'package:tinder_app_flutter/ui/widgets/input_dialog.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
+import 'dart:io' show Platform;
+
 
 enum UserVerificationState { UNVERIFIED, VERIFIED, PENDING }
 
@@ -56,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 clipper: OvalBottomBorderClipper(),
                                 child: Container(
                                   width: size.width,
-                                  height: size.height * 0.60,
+                                  height:(Platform.isIOS)? size.height*0.50: size.height * 0.60,
                                   decoration: BoxDecoration(
                                       color: kGrey.withOpacity(0.1),
                                       boxShadow: [

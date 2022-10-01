@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/ui/screens/user_profile_screen.dart';
-import 'package:tinder_app_flutter/util/constants.dart';
+import 'dart:io' show Platform;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -51,9 +51,11 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           (name == null || name == '')
-              ? InfoResult(
+              ?
+              
+              Expanded(child:  InfoResult(
                   info: 'No results',
-                )
+                ))
               : StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('users')
@@ -61,14 +63,19 @@ class _SearchScreenState extends State<SearchScreen> {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return InfoResult(
-                        info: 'Loading...',
-                      );
+                      return 
+                       Expanded(child:  InfoResult(
+                  info: 'Loading...',
+                ))
+                      
+                     ;
                     }
                     if (listEquals(snapshot.data!.docs, [])) {
-                      return InfoResult(
-                        info: 'No match found',
-                      );
+                      return 
+                       Expanded(child:  InfoResult(
+                  info: 'No match found',
+                ))
+                      ;
                     }
                     print('printing data list');
                     print(snapshot.data!.docs);
@@ -123,14 +130,15 @@ class InfoResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Center(
+    return Container(
+      child: Center(
+          child: Padding(
+            padding:(Platform.isIOS)? EdgeInsets.only(bottom: MediaQuery.of(context).size.height*14/100): EdgeInsets.zero,
             child: Text(
-          info,
-          style: TextStyle(color: Colors.black.withOpacity(0.4)),
-        )),
+        info,
+        style: TextStyle(color: Colors.black.withOpacity(0.4)),
       ),
+          )),
     );
   }
 }

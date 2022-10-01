@@ -14,6 +14,7 @@ import 'package:tinder_app_flutter/data/db/entity/chat.dart';
 import 'package:tinder_app_flutter/data/db/entity/match.dart';
 import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
 import 'package:tinder_app_flutter/util/utils.dart';
+import 'dart:io' show Platform;
 
 import '../../data/db/remote/firebase_database_source.dart';
 
@@ -82,7 +83,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               clipper: OvalBottomBorderClipper(),
               child: Container(
                 width: size.width,
-                height: size.height * 0.595,
+                height: (Platform.isIOS)? size.height * 0.55 :size.height * 0.595,
                 decoration:
                     BoxDecoration(color: kGrey.withOpacity(0.1), boxShadow: [
                   BoxShadow(

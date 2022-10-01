@@ -94,7 +94,7 @@ class _LiveStreamingScreenState extends State<LiveStreamingScreen>
                     horizontal: width * 1 / 100, vertical: heigth * 1 / 100),
                 child: InkWell(
                   onTap: () async {
-                    var id = "testing";
+                    var id = "testing_app";
                     // generateRandomString(16);
 
                     try {

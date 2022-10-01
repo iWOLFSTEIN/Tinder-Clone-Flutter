@@ -4,8 +4,11 @@ import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
 import 'package:tinder_app_flutter/data/model/chat_with_user.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
 import 'package:tinder_app_flutter/ui/screens/chat_screen.dart';
+import 'package:tinder_app_flutter/ui/screens/top_navigation_screens/search_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/chats_list.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
+import 'dart:io' show Platform;
+
 
 class ChatsScreen extends StatefulWidget {
   @override
@@ -43,17 +46,22 @@ class _ChatsScreenState extends State<ChatsScreen> {
                             if (chatWithUsersSnapshot.data == null &&
                                 chatWithUsersSnapshot.connectionState !=
                                     ConnectionState.done) {
-                              return CustomModalProgressHUD(
-                                  inAsyncCall: true, child: Container());
+                              return Padding(
+            padding:(Platform.isIOS)? EdgeInsets.only(bottom: MediaQuery.of(context).size.height*14/100): EdgeInsets.zero,
+                                child: CustomModalProgressHUD(
+                                    inAsyncCall: true, child: Container()),
+                              );
                             } else {
                               return chatWithUsersSnapshot.data!.length == 0
-                                  ? Center(
-                                      child: Container(
-                                          child: Text('No matches',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4)),
-                                    )
+                                  ? 
+                                  InfoResult(info: 'No matches',)
+                                  // Center(
+                                  //     child: Container(
+                                  //         child: Text('No matches',
+                                  //             style: Theme.of(context)
+                                  //                 .textTheme
+                                  //                 .headline4)),
+                                  //   )
                                   : ChatsList(
                                       chatWithUserList:
                                           chatWithUsersSnapshot.data,

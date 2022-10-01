@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,6 @@ import 'package:tinder_app_flutter/data/db/entity/swipe.dart';
 import 'package:tinder_app_flutter/data/db/remote/firebase_database_source.dart';
 import 'package:tinder_app_flutter/data/provider/user_provider.dart';
 import 'package:tinder_app_flutter/ui/screens/matched_screen.dart';
-import 'package:tinder_app_flutter/ui/screens/user_profile_screen.dart';
 import 'package:tinder_app_flutter/ui/widgets/custom_modal_progress_hud.dart';
 import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/ui/widgets/swipe_card.dart';
@@ -195,6 +195,7 @@ class _MatchScreenState extends State<MatchScreen>
                                         child: Container(
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 45),
+                                              padding: (Platform.isIOS)? EdgeInsets.only(bottom: MediaQuery.of(context).size.height*7/100) : EdgeInsets.zero,
                                           child: Align(
                                             alignment: Alignment.center,
                                             child: Row(

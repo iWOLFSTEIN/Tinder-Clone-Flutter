@@ -34,10 +34,12 @@ class _StreamingState extends State<Streaming> {
   bool muted = false;
   RtcEngine? _engine;
   final appId = "fb6325f90dde442a8b16aeb5be262992";
-  final token =
-      "007eJxTYPg8VdR29jbW3r9m3SKHD6z0u39gs3qX2S8esfUHUt62VzkoMKQlmRkbmaZZGqSkpJqYGCVaJBmaJaYmmSalGpkZWVoaFbfoJn+8qpd8JzueiZEBAkF8doaS1OKSzLx0BgYAOD4keA==";
+  // final token =
+  //     "007eJxTYJjzPSlE4prPa32jU+osmotXOWYs62jOPWDe/ZjnqNJkSTkFhrQkM2Mj0zRLg5SUVBMTo0SLJEOzxNQk06RUIzMjS0ujJR4WyUqzLJPtu2ayMjJAIIjPzlCSWlySmZfOwAAAT2Ef/Q==";
 
   var comment = TextEditingController();
+
+  // String? token;
 
   @override
   void dispose() {
@@ -71,6 +73,13 @@ class _StreamingState extends State<Streaming> {
     });
   }
 
+  getTempToken() async{
+   Future tokenDoc = firestore.collection('Token').doc('testing').get();
+   return tokenDoc.then((document) {
+    return document!.data()['value'];
+   });
+  }
+
   checkStreamExist() async {
     Stream<DocumentSnapshot> streamer =
         firestore.collection('LiveStreams').doc(widget.id).snapshots();
@@ -100,7 +109,7 @@ class _StreamingState extends State<Streaming> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine!.setVideoEncoderConfiguration(configuration);
-    await _engine!.joinChannel(token, widget.channelName, null, 0);
+    await _engine!.joinChannel(await getTempToken(), widget.channelName, null, 0);
   }
 
   /// Create agora sdk instance and initialize
