@@ -1,10 +1,9 @@
 # Tinder App Flutter
-![HeaderImage](github_images/header.jpeg) 
 
 ## Introduction
 This is a demo application built with the goal to learn about Flutter and to create a fun application.
 
-Tested on Android only.
+Tested on Android and iOS.
 
 ## Technologies & Architecture
 Flutter, Dart
@@ -25,6 +24,8 @@ Flutter, Dart
 
 **Chats screen:** List of chats(matches)
 
+**Streaming screen:** Live streaming both watching streams and going live
+
 **Chat screen:** Messaged sorted by timestamp, send and show messages
 
 **Match screen:** Image and information of person, like/dislike 
@@ -35,35 +36,6 @@ Flutter, Dart
 
 **Firebase:** Storing user info, chats, images
 
-## Screenshots
-
-### Start | Login | Register
-
-<p align = "left" >
-  <img width="250" height="500" src="github_images/start.jpeg">
-  <img width="250" height="500"  src="github_images/login.jpeg"> 
-  <img width="250" height="500" src="github_images/register.gif"> 
-</p>
-
-### Profile | Chats | Match
-
-<p align = "left" >
-  <img width="250" height="500" src="github_images/profile.jpeg">
-  <img width="250" height="500"  src="github_images/chats.jpeg"> 
-  <img width="250" height="500" src="github_images/match.gif"> 
-</p>
-
-### Chat | Matched
-<p align = "left" >
-  <img width="250" height="500" src="github_images/chat.jpeg">
-  <img width="250" height="500" src="github_images/matched.jpeg">
-</p>
-
-### Firebase
-<p align = "left" >
-  <img  width="378" height="332" src="github_images/firestore_1.png"> 
-  <img  width="378" height="332" src="github_images/firestore_2.png"> 
-</p>
 
 ## Setup
 
@@ -71,7 +43,7 @@ Flutter, Dart
 * Basic knowledge about Flutter
 * Basic knowledge about Android
 * Basic knowledge about Firebase
-* Flutter SDK version >= 2.0.0 (tested and works with 2.0.0)
+* Flutter SDK version >= 3.0.0 (tested and works with 3.0.0)
 
 #### Firebase
 * Setup Authentication and use the Sign-in method 'Email/Password'
